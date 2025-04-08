@@ -1,11 +1,36 @@
 const express = require('express');
-const cors = require('cors');
+const dotenv = require('dotenv');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(express.json());
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port http://localhost:${PORT}`);
-});
+const { connect: connectUser, db } = require('./database/DB/dbConnect.js');
+
+const userRegister = require('./routes/register/userRegister.js');
+const userLogin = require('./routes/login/userLogin.js');
+const historical = require('./routes/historical/historicalUser.js');
+
+
+app.use(express.json());
+dotenv.config();
+
+
+app.use('/api/register', userRegister);
+app.use('/api/login', userLogin);
+app.use('/api/historical', historical);
+
+
+(async () => {
+  try {
+    await db.sync({ force: false });
+    console.log('Database synchronized successfully.');
+    await connectUser();
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on port http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Error during server startup:', error);
+  }
+})();
+
