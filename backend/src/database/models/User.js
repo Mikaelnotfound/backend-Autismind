@@ -2,6 +2,18 @@ const { DataTypes } = require('sequelize');
 const { db } = require('../DB/dbConnect');
 const Historical = require('./Historical');
 
+
+/**
+ * User model definition
+ * @typedef {Object} User
+ * @property {number} id - User ID
+ * @property {string} username - User's username
+ * @property {string} password - User's password
+ * @property {string} email - User's email
+ * @property {Date} createdAt - User's creation date
+ * @property {number} userId - User ID for historical data
+ */
+
 const User = db.define('User', {
   id: {
     type: DataTypes.INTEGER,
