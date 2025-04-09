@@ -1,6 +1,5 @@
-const {DataTypes} = require('sequelize');
-const {db} = require('../DB/dbConnect');
-
+const { DataTypes } = require('sequelize');
+const db = require('../DB/dbConnect').config;
 
 /**
  * Historical model definition
@@ -11,7 +10,6 @@ const {db} = require('../DB/dbConnect');
  * @property {number} userId - User ID for historical data
  */
 
-
 const Historical = db.define('Historical', {
     id: {
         type: DataTypes.INTEGER,
@@ -20,7 +18,7 @@ const Historical = db.define('Historical', {
     },
     phrase: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     createdAt: {
         type: DataTypes.DATE,

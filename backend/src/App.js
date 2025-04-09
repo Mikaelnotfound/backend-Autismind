@@ -4,7 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-const { connect: connectUser, db } = require('./database/DB/dbConnect.js');
+const DB = require('./database/DB/dbConnect.js');
 
 const userRegister = require('./routes/register/userRegister.js');
 const userLogin = require('./routes/login/userLogin.js');
@@ -22,15 +22,16 @@ app.use('/api/historical', historical);
 
 (async () => {
   try {
-    await db.sync({ force: false });
+    await DB.sync({ force: false });
     console.log('Database synchronized successfully.');
-    await connectUser();
+    await DB.connectUser();
 
     app.listen(PORT, () => {
       console.log(`Server is running on port http://localhost:${PORT}`);
     });
   } catch (error) {
     console.error('Error during server startup:', error);
+    await DB.disconnectUser(); // Ensure to close the database connection on error
   }
 })();
 
