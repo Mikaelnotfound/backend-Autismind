@@ -22,7 +22,7 @@ require('dotenv').config();
 class DB {
     constructor() {
         this.config = new Sequelize(
-            process.env.DB_NAME || 'db_AutisMind',
+            process.env.DB_NAME || 'db_autismind',
             process.env.DB_USER || 'root',
             process.env.DB_PASSWORD || '',
             {
@@ -32,6 +32,15 @@ class DB {
         );
     }
 
+    async sync(options) {
+        try {
+            console.log('Synchronizing database with options:', options);
+            await this.config.sync(options);
+        } catch (error) {
+            console.error('Error during database synchronization:', error);
+            throw error;
+        }
+    }
 
     async connect() {
         try {
@@ -40,11 +49,11 @@ class DB {
             await this.config.sync({ alter: true });
         } catch (error) {
             console.error('Unable to connect to the database:', error);
-            this.disconect();
+            this.disconnect();
         }
     }
     
-    async disconect() {
+    async disconnect() {
         try {
             await this.config.close();
             console.log('Connection to the database has been closed successfully.');

@@ -1,5 +1,5 @@
-const Historical = require('../../database/models/Historical');
-const User = require('../../database/models/User');
+const Historical = require('../database/models/Historical');
+const User = require('../database/models/User');
 
 
 class HistoricalController {

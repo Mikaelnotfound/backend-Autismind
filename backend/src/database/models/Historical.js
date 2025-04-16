@@ -17,13 +17,23 @@ const Historical = db.define('Historical', {
         autoIncrement: true,
     },
     phrase: {
-        type: DataTypes.STRING,
-        allowNull: true,
+        type: DataTypes.TEXT,
+        allowNull: false,
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+    userId: {
+        type: DataTypes.INTEGER,
+        unique: true,
+        allowNull: false,
+        references: {
+            model: 'Users',
+            key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
     },
+}, {
+    timestamps: true,
 });
+
 
 module.exports = Historical;
