@@ -3,7 +3,7 @@ node_modules/
 
 # backend
 ./backend/node_modules/
-./backend/.env
+./backend/src/.env
 
 # Frontend
 ./frontend/node_modules/

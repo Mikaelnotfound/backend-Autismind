@@ -2,27 +2,16 @@ const express = require('express');
 const dotenv = require('dotenv');
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-
-const DB = require('./database/DB/dbConnect.js');
-
-// const userRegister = require('./routes/register/userRegister.js');
-// const userLogin = require('./routes/login/userLogin.js');
-// const historical = require('./routes/historical/historicalUser.js');
-
-const routes = require('./routes.js');
-
-
-
-app.use(express.json());
 dotenv.config();
 
 
-// app.use('/api/register', userRegister);
-// app.use('/api/login', userLogin);
-// app.use('/api/historical', historical);
+const DB = require('./database/DB/dbConnect.js');
+const routes = require('./routes.js');
 
+
+app.use(express.json());
 app.use(routes); // Use the routes defined in routes.js
+
 
 (async () => {
   try {
