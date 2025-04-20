@@ -1,38 +1,6 @@
-const pool = require('./Pool/Pool');
+const DatabaseQuery = require('../DatabaseQuery');
 
-/**
- * Class for executing database queries
- */
-class DatabaseQuerys {
-    constructor() {
-        this.pool = pool; // Reference to the database connection pool
-    }
-
-    /**
-     * Executes a SQL query with optional parameters
-     * @param {string} sql - The SQL query to execute
-     * @param {Array} value - The parameters for the query
-     * @returns {Promise<Array>} - The result of the query
-     */
-    async executeQuery(sql, value = []) {
-        if (!this.pool.pool) {
-            throw new Error('Database connection pool is not initialized');
-        }
-
-        try {
-            const connection = await this.pool.pool.getConnection(); // Get a connection from the pool
-            try {
-                const [rows] = await connection.execute(sql, value); // Execute the query
-                return rows;
-            } finally {
-                connection.release(); // Release the connection back to the pool
-            }
-        } catch (error) {
-            console.error('Error executing query:', error);
-            throw error;
-        }
-    }
-
+class UserUqerys extends DatabaseQuery {
     /**
      * Retrieves all users from the database
      * @returns {Promise<Array>} - List of all users
@@ -115,29 +83,6 @@ class DatabaseQuerys {
         const value = [id];
         return this.executeQuery(sql, value);
     }
-
-    /**
-     * Retrieves historical data for a user
-     * @param {number} userId - The ID of the user
-     * @returns {Promise<Array>} - List of historical data
-     */
-    async getHistoricalData(userId) {
-        const sql = 'SELECT * FROM historical WHERE user_id = ? ORDER BY id ASC';
-        const value = [userId];
-        return this.executeQuery(sql, value);
-    }
-
-    /**
-     * Adds historical data for a user
-     * @param {number} userId - The ID of the user
-     * @param {string} data - The historical data to add
-     * @returns {Promise<void>}
-     */
-    async addHistoricalData(userId, data) {
-        const sql = 'INSERT INTO historical (user_id, data) VALUES (?, ?)';
-        const value = [userId, data];
-        return this.executeQuery(sql, value);
-    }
 }
 
-module.exports = new DatabaseQuerys();
+module.exports = new UserUqerys()

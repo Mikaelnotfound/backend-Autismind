@@ -43,12 +43,37 @@ class Pool {
                 email VARCHAR(191) NOT NULL UNIQUE,
                 password VARCHAR(255) NOT NULL
             );`,
+            `CREATE TABLE IF NOT EXISTS \`character\` (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(191) NOT NULL,
+                personality VARCHAR(191) NOT NULL
+            );`,
+            `CREATE TABLE IF NOT EXISTS message (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                shipping_date DATETIME NOT NULL,
+                sent_by ENUM('user', 'bot') NOT NULL,
+                content TEXT NOT NULL,
+                user_id INT NOT NULL,
+                chat_id INT NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            );`,
+            `CREATE TABLE IF NOT EXISTS chat (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                date DATETIME NOT NULL,
+                user_id INT NOT NULL,
+                character_id INT NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES users(id),
+                FOREIGN KEY (character_id) REFERENCES \`character\`(id)
+            );`,
             `CREATE TABLE IF NOT EXISTS historical (
                 id INT AUTO_INCREMENT PRIMARY KEY,
+                date DATETIME NOT NULL,
+                chat_id INT NOT NULL,
                 user_id INT NOT NULL,
-                data VARCHAR(255) NOT NULL,
-                FOREIGN KEY (user_id) REFERENCES users(id)
-            );`
+                FOREIGN KEY (user_id) REFERENCES users(id),
+                FOREIGN KEY (chat_id) REFERENCES chat(id)
+            );`,
+            `ALTER TABLE message ADD CONSTRAINT fk_chat_id FOREIGN KEY (chat_id) REFERENCES chat(id);`
         ];
 
         try {

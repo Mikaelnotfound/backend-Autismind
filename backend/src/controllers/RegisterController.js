@@ -1,4 +1,4 @@
-const query = require('../database/DatabaseQuerys'); // Import the database connection
+const query = require('../database/querys/UserQuerys'); // Import the database connection
 const bcrypt = require('bcrypt');
 
 

@@ -1,10 +1,11 @@
-const query = require('../database/DatabaseQuerys'); // Import the database connection
+const query = require('../database/querys/HistoricalQuerys'); // Import the database connection
+const queryUser = require('../database/querys/UserQuerys');
 
 class HistoricalController {
     async getHistoricalUser(req, res) {
         try {
             const { id } = req.params;
-            const user = await query.getUserId(id) // Fetch user by ID from the database
+            const user = await queryUser.getUserId(id) // Fetch user by ID from the database
             // Check if user exists in the database
             const historical = await query.getHistoricalData(id);
     
@@ -13,7 +14,7 @@ class HistoricalController {
             }
             res.status(200).json({ Historical: historical });
         } catch (error) {
-            res.status(500).json({ message: 'Internal server error', error });
+            res.status(500).json({ message: 'Internal server error', error: error.message || error });
         }
     }
 
@@ -22,7 +23,7 @@ class HistoricalController {
             const { id } = req.params;
             const { phrase } = req.body; // Extract phrase from the request body
 
-            const user = await query.getUserId(id); // Fetch user by ID from the database
+            const user = await queryUser.getUserId(id); // Fetch user by ID from the database
             const historical = await query.getHistoricalData(id);
     
             if(!user) {
