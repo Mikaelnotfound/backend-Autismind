@@ -50,15 +50,15 @@ backend/
 │   │   ├── [DatabaseQuery.js]
 │   │   └── querys/
 │   │       ├── [ChatQuerys.js]
-│   │       ├── [CharacterQuerys.js])
-│   │       ├── [HistoricalQuerys.js])
-│   │       ├── [MessageQuerys.js])
-│   │       └── [UserQuerys.js])
-│   ├── [App.js])              # Configuração principal do servidor
-│   └── [routes.js])           # Definição das rotas da API
+│   │       ├── [CharacterQuerys.js]
+│   │       ├── [HistoricalQuerys.js]
+│   │       ├── [MessageQuerys.js]
+│   │       └── [UserQuerys.js]
+│   ├── [App.js]              # Configuração principal do servidor
+│   └── [routes.js]           # Definição das rotas da API
 ├── .env                    # Variáveis de ambiente
 ├── package.json            # Dependências do projeto
-└── [README.md])               # Documentação do projeto
+└── [README.md]               # Documentação do projeto
 ```
 
 
