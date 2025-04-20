@@ -178,13 +178,13 @@ Mikael Carlos
 
 ### Contribuições de: 
 
-Vitória Priscila
+Misia Taís
 - E-mail (institucional): Mtssm2@aluno.ifal.edu.br
 - GitHub: [misiatais](https://github.com/misiatais)
 
-Misia Taís
+Vitória Priscila
 - E-mail (institucional): vpsv1@aluno.ifal.edu.br
-- GitHub: [misiatais](https://github.com/peskyBeecode) 
+- GitHub: [peskyBeecode](https://github.com/peskyBeecode) 
 
 
 Estamos abertos para sugestões e contribuições!
