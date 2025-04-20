@@ -39,26 +39,26 @@ Este é o backend do projeto **AutisMind**, desenvolvido em Node.js com Express.
 backend/
 ├── src/
 │   ├── controllers/        # Controladores da API
-│   │   ├── [ChatController.js](http://_vscodecontentref_/1)
-│   │   ├── [CharacterController.js](http://_vscodecontentref_/2)
-│   │   ├── [HistoricalController.js](http://_vscodecontentref_/3)
-│   │   ├── [MessageController.js](http://_vscodecontentref_/4)
-│   │   ├── [registerController.js](http://_vscodecontentref_/5)
-│   │   └── [UserLoginController.js](http://_vscodecontentref_/6)
+│   │   ├── [ChatController.js]
+│   │   ├── [CharacterController.js]
+│   │   ├── [HistoricalController.js]
+│   │   ├── [MessageController.js]
+│   │   ├── [registerController.js]
+│   │   └── [UserLoginController.js]
 │   ├── database/           # Configuração do banco de dados
-│   │   ├── [Pool.js](http://_vscodecontentref_/7)
-│   │   ├── [DatabaseQuery.js](http://_vscodecontentref_/8)
+│   │   ├── [Pool.js]
+│   │   ├── [DatabaseQuery.js]
 │   │   └── querys/
-│   │       ├── [ChatQuerys.js](http://_vscodecontentref_/9)
-│   │       ├── [CharacterQuerys.js](http://_vscodecontentref_/10)
-│   │       ├── [HistoricalQuerys.js](http://_vscodecontentref_/11)
-│   │       ├── [MessageQuerys.js](http://_vscodecontentref_/12)
-│   │       └── [UserQuerys.js](http://_vscodecontentref_/13)
-│   ├── [App.js](http://_vscodecontentref_/14)              # Configuração principal do servidor
-│   └── [routes.js](http://_vscodecontentref_/15)           # Definição das rotas da API
+│   │       ├── [ChatQuerys.js]
+│   │       ├── [CharacterQuerys.js])
+│   │       ├── [HistoricalQuerys.js])
+│   │       ├── [MessageQuerys.js])
+│   │       └── [UserQuerys.js])
+│   ├── [App.js])              # Configuração principal do servidor
+│   └── [routes.js])           # Definição das rotas da API
 ├── .env                    # Variáveis de ambiente
 ├── package.json            # Dependências do projeto
-└── [README.md](http://_vscodecontentref_/16)               # Documentação do projeto
+└── [README.md])               # Documentação do projeto
 ```
 
 
