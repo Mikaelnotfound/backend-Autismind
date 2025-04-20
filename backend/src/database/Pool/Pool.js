@@ -1,14 +1,22 @@
 const mysql = require('mysql2/promise');
 
-
+/**
+ * Class for managing the database connection pool
+ */
 class Pool {
+    /**
+     * Initializes the database connection pool configuration
+     * @param {string} host - Database host
+     * @param {string} user - Database user
+     * @param {string} password - Database password
+     * @param {string} database - Database name
+     */
     constructor(
         host = process.env.DB_HOST || 'localhost',
         user = process.env.DB_USER || 'root',
         password = process.env.DB_PASSWORD || '',
         database = process.env.DB_NAME || 'db_autismind'
     ) {
-
         this.config = {
             host: host,
             user: user,
@@ -17,11 +25,15 @@ class Pool {
             waitForConnections: true,
             connectionLimit: 10,
             queueLimit: 0,
-        }
-        this.pool = null;
-        this.database = database;
+        };
+        this.pool = null; // Holds the initialized pool instance
+        this.database = database; // Stores the database name
     }
 
+    /**
+     * Connects to the database and initializes the connection pool.
+     * Also creates the database and tables if they do not exist.
+     */
     async connect() {
         const sqlCommands = [
             `CREATE DATABASE IF NOT EXISTS ${this.database};`,
@@ -40,32 +52,35 @@ class Pool {
         ];
 
         try {
-            this.pool = await mysql.createPool(this.config);
+            this.pool = await mysql.createPool(this.config); // Initialize the connection pool
             console.log('Connected to the database successfully!');
 
-            const connection = await this.pool.getConnection(); // Obtenha uma conexão do pool
+            const connection = await this.pool.getConnection(); // Get a connection from the pool
 
             try {
                 for (const sql of sqlCommands) {
-                    await connection.execute(sql); // Use connection.execute para executar as queries
+                    await connection.execute(sql); // Execute SQL commands
                 }
                 console.log('Database and tables created successfully!');
             } finally {
-                connection.release(); // Libere a conexão de volta ao pool
+                connection.release(); // Release the connection back to the pool
             }
 
         } catch (error) {
             console.error('Error connecting or creating database/tables:', error);
             if (this.pool) {
-                await this.pool.end(); // Encerre o pool em caso de erro grave
+                await this.pool.end(); // Close the pool in case of a critical error
             }
             throw error;
         }
     }
 
+    /**
+     * Disconnects from the database by closing the connection pool.
+     */
     async disconnect() {
         if (this.pool) {
-            await this.pool.end();
+            await this.pool.end(); // Close the pool
             console.log('Database connection closed.');
         } else {
             console.log('No active database connection to close.');
