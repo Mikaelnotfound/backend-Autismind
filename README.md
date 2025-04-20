@@ -169,15 +169,22 @@ O banco de dados é configurado automaticamente pelo script de inicialização. 
 
 ### 📧 Contato
 
-Se você tiver alguma dúvida ou quiser discutir sobre o projeto, pode entrar em contato conosco!
+Se você tiver alguma dúvida ou quiser discutir sobre o projeto, pode entrar em contato!
 
+Mikael Carlos
 - E-mail: carlosmikael273@gmail.com
 - GitHub: [MIkaelpeganinguem](https://github.com/MIkaelpeganinguem)
 
-- E-mail: Mtssm2@aluno.ifal.edu.br
+
+### Contribuições de: 
+
+Vitória Priscila
+- E-mail (institucional): Mtssm2@aluno.ifal.edu.br
 - GitHub: [misiatais](https://github.com/misiatais)
 
-- E-mail: vpsv1@aluno.ifal.edu.br
+Misia Taís
+- E-mail (institucional): vpsv1@aluno.ifal.edu.br
 - GitHub: [misiatais](https://github.com/peskyBeecode) 
+
 
 Estamos abertos para sugestões e contribuições!
