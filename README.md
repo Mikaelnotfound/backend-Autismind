@@ -64,6 +64,7 @@ backend/
 ### ⚙️ Configuração do Ambiente
 
 1. Crie um arquivo .env na raiz do projeto com as seguintes variáveis:
+
     ```bash
     DB_HOST=localhost
     DB_USER=root
@@ -74,21 +75,25 @@ backend/
 2. Certifique-se de que o MySQL está instalado e configurado no seu sistema.
 
 3. Clone o repositório:
+
     ```bash
     git clone https://github.com/seu-usuario/autismind-backend.git
     cd autismind-backend
 
 4. Instale as dependências:
+
     ```bash
     npm install
 
 5. Execute com:
+
     ```bash
     npm start
 
 ## 📖 Rotas da API
 
 **Usuários**
+
 - **GET** `/api/register`: Retorna todos os usuários.
 - **GET** `/api/register/:id`: Retorna um usuário pelo ID.
 - **POST** `/api/register`: Cria um novo usuário.
@@ -96,24 +101,29 @@ backend/
 - **DELETE** `/api/register/:id`: Deleta um usuário pelo ID.
 
 **Login**
+
  - **GET** `/api/login`: Realiza o login de um usuário.
 
 **Histórico**
+
 - **GET** `/api/historical/:id`: Retorna o histórico de um usuário.
 - **POST** `/api/historical/:id`: Adiciona dados ao histórico de um usuário.
 
 **Mensagens**
+
 - **GET** `/api/messages/user/:userId`: Retorna todas as mensagens de um usuário.
 - **GET** `/api/messages/chat/:chatId`: Retorna todas as mensagens de um chat.
 - **POST** `/api/messages/chat/:id`: Cria uma nova mensagem.
 - **DELETE** `/api/messages/:id`: Exclui uma mensagem pelo ID.
 
 **Chats**
+
 - **GET** `/api/chats/user/:userId: Retorna todos os chats de um usuário.
 - **POST** `/api/chats`: Cria um novo chat.
 - **DELETE** `/api/chats/:id`: Exclui um chat pelo ID.
 
 **Personagens**
+
 - **GET** `/api/characters`: Retorna todos os personagens.
 - **GET** `/api/characters/:id`: Retorna um personagem pelo ID.
 - **POST** `/api/characters`: Cria um novo personagem.
