@@ -59,6 +59,7 @@ backend/
 ├── .env                    # Variáveis de ambiente
 ├── package.json            # Dependências do projeto
 └── [README.md](http://_vscodecontentref_/16)               # Documentação do projeto
+```
 
 
 ### ⚙️ Configuração do Ambiente
@@ -71,6 +72,7 @@ backend/
     DB_PASSWORD=
     DB_NAME=db_autismind
     PORT=3000
+    ```
 
 2. Certifique-se de que o MySQL está instalado e configurado no seu sistema.
 
@@ -79,16 +81,19 @@ backend/
     ```bash
     git clone https://github.com/seu-usuario/autismind-backend.git
     cd autismind-backend
+    ```
 
 4. Instale as dependências:
 
     ```bash
     npm install
+    ```
 
 5. Execute com:
 
     ```bash
     npm start
+    ```
 
 ## 📖 Rotas da API
 
