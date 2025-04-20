@@ -174,4 +174,10 @@ Se você tiver alguma dúvida ou quiser discutir sobre o projeto, pode entrar em
 - E-mail: carlosmikael273@gmail.com
 - GitHub: [MIkaelpeganinguem](https://github.com/MIkaelpeganinguem)
 
+- E-mail: Mtssm2@aluno.ifal.edu.br
+- GitHub: [misiatais](https://github.com/misiatais)
+
+- E-mail: vpsv1@aluno.ifal.edu.br
+- GitHub: [misiatais](https://github.com/peskyBeecode) 
+
 Estamos abertos para sugestões e contribuições!
