@@ -1,11 +1,2 @@
-# This is a sample .gitignore file for a Node.js project
 node_modules/
-
-# backend
-./backend/node_modules/
-./backend/src/.env
-
-# Frontend
-./frontend/node_modules/
-./frontend/build/ 
-./frontend/.env
+.env

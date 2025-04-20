@@ -1,29 +1,34 @@
-const User = require('../database/models/User');
+const query = require('../database/DatabaseQuerys'); // Import the database connection
 const bcrypt = require('bcrypt'); // Import bcrypt for password hashing
 
 
 class UserLoginController {
     async getUserLogin(req, res) {
         try {
-            const { username, email, password } = req.body; // Extract username, email, and password from the request body
-            if (!username || !password || !email) {
-                return res.status(400).json({ message: 'Username and password are required' });
+            const { email, password } = req.body;
+
+            // Verifique se os campos obrigatórios estão presentes
+            if (!email || !password) {
+                return res.status(400).json({ message: 'Email and password are required' });
             }
-    
-            const user = await User.findByPk(req.params.id, {
-                where: { username, email, password }
-            }); // Fetch user by ID from the database
-    
+
+            // Busque o usuário no banco de dados pelo email
+            const user = await query.getUserByEmail(email);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-    
-            const comparePassword = await bcrypt.compare(password, user.password); // Compare the provided password with the hashed password in the database
-            if (comparePassword && user.email === email && user.username === username) {
-                return res.status(200).json({ message: 'Login successful', user }); // Return success message and user data
+
+            // Verifique a senha fornecida com a senha hash armazenada
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+            if (!isPasswordValid) {
+                return res.status(401).json({ message: 'Invalid password' });
             }
+
+            // Retorne uma resposta de sucesso (você pode gerar um token JWT aqui, se necessário)
+            res.status(200).json({ message: 'Login successful', user: { id: user.id, email: user.email } });
         } catch (error) {
-            res.status(500).json({ message: 'Internal server error', error });
+            console.error('Error during login:', error);
+            res.status(500).json({ message: 'Internal server error', error: error.message || error });
         }
     }
 }
