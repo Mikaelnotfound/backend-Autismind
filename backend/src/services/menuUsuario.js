@@ -30,15 +30,47 @@ async function menuUsuario(user) {
                         break;
                     }
 
-                    const novaConversa = new Conversa(null, null, null, null, user.id, personagem.id);
-                    await novaConversa.salvarConversa();
+                    const novaConversa = new Conversa(null, null, titulo, user.id, personagem.id);
+                    await novaConversa.salvarConversa(); // Salva a conversa no banco de dados
+                    await novaConversa.salvarNoHistorico(); // Salva a conversa no histórico
                     console.log(`Conversa "${titulo}" criada com ${personagem.nome}.`);
                     break;
                 case "2":
+                    // Exibe as conversas do usuário
+                    const conversas = await Conversa.obterConversasPorUsuario(user.id); // Chama o método estático
+                    if (conversas.length === 0) {
+                        console.log("Nenhuma conversa encontrada. Crie uma conversa antes de enviar mensagens.");
+                        break;
+                    }
+
+                    console.log("Conversas disponíveis:");
+                    console.table(conversas.map(c => ({
+                        ID: c.id_conversa,
+                        Título: c.titulo,
+                        Data: c.data,
+                        "ID Personagem": c.id_personagem
+                    })));
+
+                    // Solicita o ID da conversa
+                    const conversaId = readlineSync.question("Digite o ID da conversa para enviar a mensagem: ");
+                    const conversaSelecionada = conversas.find(c => c.id_conversa === parseInt(conversaId));
+                    if (!conversaSelecionada) {
+                        console.log("Conversa inválida.");
+                        break;
+                    }
+
+                    // Solicita a mensagem
                     const mensagem = readlineSync.question("Digite sua mensagem: ");
-                    const personagemParaMensagem = readlineSync.question("Digite o ID do personagem para enviar a mensagem: ");
-                    const conversa = new Conversa(null, null, new Date().toUTCString(), mensagem, user.id, personagemParaMensagem);
-                    await conversa.salvarConversa();
+
+                    // Salva a mensagem na conversa
+                    const conversa = new Conversa(
+                        conversaSelecionada.id_conversa,
+                        conversaSelecionada.data,
+                        conversaSelecionada.titulo,
+                        user.id,
+                        conversaSelecionada.id_personagem
+                    );
+                    await conversa.salvarMensagem('user', mensagem); // Salva a mensagem como enviada pelo usuário // Salva a mensagem como enviada pelo usuário
                     console.log("Mensagem enviada com sucesso!");
                     break;
                 case "3":

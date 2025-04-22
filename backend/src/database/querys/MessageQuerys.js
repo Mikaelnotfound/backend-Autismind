@@ -33,7 +33,7 @@ class MessageQuerys extends DatabaseQuery {
      * @param {string} sent_by - Who sent the message ('user' or 'bot')
      * @returns {Promise<void>}
      */
-    async addMessage(shipping_date, user_id, chat_id, content, sent_by) {
+    async addMessage(shipping_date, sent_by, content, user_id, chat_id) {
         const sql = 'INSERT INTO message (shipping_date, sent_by, content, user_id, chat_id) VALUES (?, ?, ?, ?, ?)';
         const values = [shipping_date, sent_by, content, user_id, chat_id];
         return this.executeQuery(sql, values);

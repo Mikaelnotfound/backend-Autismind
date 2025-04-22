@@ -1,14 +1,12 @@
 const UserQuerys = require('../database/querys/UserQuerys');
 
 class Usuario {
-    constructor(id, username, senha, email, idade, nivel_comunicacao, isAdmin = false) {
+    constructor(id, username, senha, email, nivel_comunicacao) {
         this.id = id;
         this.username = username;
         this.senha = senha;
         this.email = email;
-        this.idade = idade;
         this.nivel_comunicacao = nivel_comunicacao;
-        this.isAdmin = isAdmin;
     }
 
     static async obterTodosUsuarios() {
@@ -35,9 +33,7 @@ class Usuario {
                     userData.username,
                     userData.password,
                     userData.email,
-                    userData.age,
                     userData.communication_level,
-                    userData.isAdmin
                 );
             }
             return null; // Retorna null se o usuário não for encontrado
@@ -53,7 +49,7 @@ class Usuario {
      */
     async salvarUsuario() {
         try {
-            await UserQuerys.addUser(this.username, this.email, this.senha);
+            await UserQuerys.addUser(this.username, this.email, this.senha, this.nivel_comunicacao);
             console.log('Usuário salvo com sucesso!');
         } catch (error) {
             console.error('Erro ao salvar usuário:', error.message);

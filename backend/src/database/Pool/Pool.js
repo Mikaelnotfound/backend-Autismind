@@ -15,7 +15,7 @@ class Pool {
         host = process.env.DB_HOST || 'localhost',
         user = process.env.DB_USER || 'root',
         password = process.env.DB_PASSWORD || '',
-        database = process.env.DB_NAME || 'db_autismind'
+        database = process.env.DB_NAME || 'db_teste'
     ) {
         this.config = {
             host: host,
@@ -41,7 +41,8 @@ class Pool {
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 username VARCHAR(191) NOT NULL,
                 email VARCHAR(191) NOT NULL UNIQUE,
-                password VARCHAR(255) NOT NULL
+                password VARCHAR(255) NOT NULL,
+                communication_level INT NOT NULL
             );`,
             `CREATE TABLE IF NOT EXISTS \`character\` (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -60,6 +61,7 @@ class Pool {
             `CREATE TABLE IF NOT EXISTS chat (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 date DATETIME NOT NULL,
+                title VARCHAR(191) NOT NULL,
                 user_id INT NOT NULL,
                 character_id INT NOT NULL,
                 FOREIGN KEY (user_id) REFERENCES users(id),
@@ -69,9 +71,10 @@ class Pool {
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 date DATETIME NOT NULL,
                 chat_id INT NOT NULL,
+                chat_title VARCHAR(191) NOT NULL,
                 user_id INT NOT NULL,
                 FOREIGN KEY (user_id) REFERENCES users(id),
-                FOREIGN KEY (chat_id) REFERENCES chat(id)
+                FOREIGN KEY (chat_id, chat_title) REFERENCES chat(id, title)
             );`,
             `ALTER TABLE message ADD CONSTRAINT fk_chat_id FOREIGN KEY (chat_id) REFERENCES chat(id);`
         ];

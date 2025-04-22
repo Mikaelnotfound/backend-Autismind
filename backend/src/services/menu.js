@@ -64,8 +64,9 @@ class Menu {
             const username = readlineSync.question("Digite seu nome de usuário: ");
             const email = readlineSync.question("Digite seu email: ");
             const senha = readlineSync.question("Digite sua senha: ");
+            const nivel_comunicacao = readlineSync.question("Digite seu nível de comunicação")
 
-            const novoUsuario = new Usuario(null, username, senha, email);
+            const novoUsuario = new Usuario(null, username, senha, email, nivel_comunicacao);
             await novoUsuario.salvarUsuario();
             console.log("Usuário registrado com sucesso!");
         } catch (error) {

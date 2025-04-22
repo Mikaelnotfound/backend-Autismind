@@ -2,7 +2,8 @@ const readlineSync = require('readline-sync');
 
 const Personagem = require('../class/Personagem');
 const Usuario = require('../class/Usuario');
-const Historico = require('../class/Historico');
+// const Historico = require('../class/Historico');
+const Conversa = require('../class/Conversa');
 
 const Menu = require('../services/menu');
 
@@ -30,11 +31,21 @@ async function menuAdmin() {
                     console.log("Usuários cadastrados:");
                     console.table(usuarios);
 
-                    const userId = readlineSync.question("Digite o ID do usuário para visualizar as mensagens: ");
-                    const historico = new Historico(userId);
-                    const mensagens = await historico.obterHistorico();
-                    console.log("Mensagens do usuário:");
-                    console.table(mensagens);
+                    const userId = readlineSync.question("Digite o ID do usuário para visualizar as Conversas: ");
+
+                    const conversas = await Conversa.obterConversasPorUsuario(userId);
+                    if (conversas.length === 0) {
+                        console.log("Nenhuma conversa encontrada para este usuário");
+                    } else {
+                        console.log("Conversas do usuário:");
+                        console.table(conversas.map(c => ({
+                            ID: c.id_conversa,
+                            Data: c.data,
+                            Título: c.titulo,
+                            "ID Usuário": c.id_user,
+                            "ID Personagem": c.id_personagem
+                        })));
+                    }
                     break;
                 case "3":
                     continuar = false; // Volta para o menu principal

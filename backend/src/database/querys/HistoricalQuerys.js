@@ -23,6 +23,12 @@ class HistoricalQuerys extends DatabaseQuery {
         const value = [userId, date];
         return this.executeQuery(sql, value);
     }
+
+    async addHistorical(date, chat_id, chat_title, user_id) {
+        const sql = `INSERT INTO historical (date, chat_id, chat_title, user_id) VALUES (?, ?, ?, ?)`;
+        const values = [date, chat_id, chat_title, user_id];
+        await this.executeQuery(sql, values);
+    }
 }
 
 module.exports = new HistoricalQuerys();
