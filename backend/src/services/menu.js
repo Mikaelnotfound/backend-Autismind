@@ -5,6 +5,10 @@ const Personagem = require('../class/Personagem');
 const Conversa = require('../class/Conversa');
 const Historico = require('../class/Historico');
 
+const menuAdmin = require('./menuAdmin');
+const menuUsuario = require('./menuUsuario');
+
+
 class Menu {
     async menuPrincipal() {
         let continuar = true;
@@ -74,96 +78,12 @@ class Menu {
         }
     }
 
-    async menuAdmin(user) {
-        let continuar = true;
-        while (continuar) {
-            try {
-                console.log("\nBem-vindo ao painel de administrador!");
-                console.log("1. Cadastrar Personagem");
-                console.log("2. Visualizar Usuários e Mensagens");
-                console.log("3. Sair");
-    
-                const opcao = readlineSync.question("Escolha uma opção: ");
-    
-                switch (opcao) {
-                    case "1":
-                        const nome = readlineSync.question("Nome do personagem: ");
-                        const personalidade = readlineSync.question("Personalidade do personagem: ");
-                        const novoPersonagem = new Personagem(null, nome, personalidade);
-                        await novoPersonagem.salvarPersonagem();
-                        console.log("Personagem cadastrado com sucesso!");
-                        break;
-                    case "2":
-                        const usuarios = await Usuario.obterTodosUsuarios(); // Chama o método corrigido
-                        console.log("Usuários cadastrados:");
-                        console.table(usuarios);
-    
-                        const userId = readlineSync.question("Digite o ID do usuário para visualizar as mensagens: ");
-                        const historico = new Historico(userId);
-                        const mensagens = await historico.obterHistorico();
-                        console.log("Mensagens do usuário:");
-                        console.table(mensagens);
-                        break;
-                    case "3":
-                        continuar = false; // Volta para o menu principal
-                        break;
-                    default:
-                        console.log("Opção inválida.");
-                }
-            } catch (error) {
-                console.error("Erro no menu de administrador:", error.message);
-            }
-        }
-        await this.menuPrincipal(); // Volta para o menu principal após sair do menu admin
+    async menuAdmin(){
+        return menuAdmin();
     }
 
-    async menuUsuario(user) {
-        let continuar = true;
-        while (continuar) {
-            try {
-                console.log("\nBem-vindo ao menu do usuário!");
-                console.log("1. Criar Conversa");
-                console.log("2. Enviar Mensagem");
-                console.log("3. Sair");
-
-                const opcao = readlineSync.question("Escolha uma opção: ");
-
-                switch (opcao) {
-                    case "1":
-                        const titulo = readlineSync.question("Digite o título da conversa: ");
-                        const personagens = await Personagem.obterTodosPersonagens();
-                        console.log("Escolha um personagem para conversar:");
-                        console.table(personagens);
-
-                        const personagemId = readlineSync.question("Digite o ID do personagem: ");
-                        const personagem = personagens.find(p => p.id === parseInt(personagemId));
-                        if (!personagem) {
-                            console.log("Personagem inválido.");
-                            break;
-                        }
-
-                        const novaConversa = new Conversa(null, null, null, null, user.id, personagem.id);
-                        await novaConversa.salvarConversa();
-                        console.log(`Conversa "${titulo}" criada com ${personagem.nome}.`);
-                        break;
-                    case "2":
-                        const mensagem = readlineSync.question("Digite sua mensagem: ");
-                        const personagemParaMensagem = readlineSync.question("Digite o ID do personagem para enviar a mensagem: ");
-                        const conversa = new Conversa(null, null, new Date().toUTCString(), mensagem, user.id, personagemParaMensagem);
-                        await conversa.salvarConversa();
-                        console.log("Mensagem enviada com sucesso!");
-                        break;
-                    case "3":
-                        continuar = false; // Volta para o menu principal
-                        break;
-                    default:
-                        console.log("Opção inválida.");
-                }
-            } catch (error) {
-                console.error("Erro no menu do usuário:", error.message);
-            }
-        }
-        await this.menuPrincipal(); // Volta para o menu principal após sair do menu de usuário
+    async menuUsuario(user){
+        return menuUsuario(user);
     }
 }
 
