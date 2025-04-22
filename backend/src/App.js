@@ -6,18 +6,17 @@ dotenv.config();
 
 
 const pool = require('./database/Pool/Pool.js');
-const routes = require('./routes.js');
-
-
-app.use(express.json());
-app.use(routes); // Use the routes defined in routes.js
+const menu = require('./services/menu.js');
 
 
 (async () => {
   try {
     await pool.connect();
     console.log('Database synchronized successfully.');
-
+    
+    const Menu = new menu();
+    await Menu.menuPrincipal();
+    
     app.listen(PORT, () => {
       console.log(`Server is running on port http://localhost:${PORT}`);
     });
