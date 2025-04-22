@@ -34,8 +34,6 @@ class Menu {
                 }
             } catch (error) {
                 console.error("Erro no menu principal:", error.message);
-                // Decida se você quer continuar mostrando o menu após um erro grave
-                // Por enquanto, vamos continuar
             }
         }
     }
