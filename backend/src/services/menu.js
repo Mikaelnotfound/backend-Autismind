@@ -1,9 +1,6 @@
 const readlineSync = require('readline-sync');
 
 const Usuario = require('../class/Usuario');
-const Personagem = require('../class/Personagem');
-const Conversa = require('../class/Conversa');
-const Historico = require('../class/Historico');
 
 const menuAdmin = require('./menuAdmin');
 const menuUsuario = require('./menuUsuario');
