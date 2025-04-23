@@ -39,12 +39,7 @@ class Conversa {
     async salvarNoHistorico() {
         try {
             const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-            console.log('Salvando no histórico:', {
-                date,
-                chat_id: this.id_conversa,
-                chat_title: this.titulo,
-                user_id: this.id_user
-            }); // Adicione este log para depuração
+
             await HistoricalQuerys.addHistorical(date, this.id_conversa, this.titulo, this.id_user);
             console.log('Conversa salva no histórico com sucesso!');
         } catch (error) {
