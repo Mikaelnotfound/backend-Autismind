@@ -19,10 +19,17 @@ class ChatQuerys extends DatabaseQuery {
      * @param {number} character_id - The ID of the character
      * @returns {Promise<void>}
      */
+    // async addChat(date, title, user_id, character_id) {
+    //     const sql = 'INSERT INTO chat (date, title, user_id, character_id) VALUES (?, ?, ?, ?)';
+    //     const values = [date, title, user_id, character_id];
+    //     return this.executeQuery(sql, values);
+    // }
+
     async addChat(date, title, user_id, character_id) {
-        const sql = 'INSERT INTO chat (date, title, user_id, character_id) VALUES (?, ?, ?, ?)';
-        const values = [date, title, user_id, character_id];
-        return this.executeQuery(sql, values);
+            const sql = `INSERT INTO chat (date, title, user_id, character_id) VALUES (?, ?, ?, ?)`;
+            const values = [date, title, user_id, character_id];
+            const result = await this.executeQuery(sql, values);
+            return result.insertId; // Retorna o ID gerado automaticamente        
     }
 
     /**

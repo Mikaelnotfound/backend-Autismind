@@ -7,6 +7,7 @@ const Menu = require('../services/menu');
 
 async function menuUsuario(user) {
     let continuar = true;
+    let conversas = null;
     while (continuar) {
         try {
             console.log("\nBem-vindo ao menu do usuário!");
@@ -30,14 +31,15 @@ async function menuUsuario(user) {
                         break;
                     }
 
-                    const novaConversa = new Conversa(null, null, titulo, user.id, personagem.id);
+                    conversas = await Conversa.obterConversasPorUsuario(user.id); // Chama o método estático
+                    const novaConversa = new Conversa(conversas.id, null, titulo, user.id, personagem.id);
                     await novaConversa.salvarConversa(); // Salva a conversa no banco de dados
                     await novaConversa.salvarNoHistorico(); // Salva a conversa no histórico
                     console.log(`Conversa "${titulo}" criada com ${personagem.nome}.`);
                     break;
                 case "2":
                     // Exibe as conversas do usuário
-                    const conversas = await Conversa.obterConversasPorUsuario(user.id); // Chama o método estático
+                    conversas = await Conversa.obterConversasPorUsuario(user.id); // Chama o método estático
                     if (conversas.length === 0) {
                         console.log("Nenhuma conversa encontrada. Crie uma conversa antes de enviar mensagens.");
                         break;

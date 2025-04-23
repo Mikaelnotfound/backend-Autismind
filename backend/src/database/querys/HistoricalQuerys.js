@@ -18,9 +18,9 @@ class HistoricalQuerys extends DatabaseQuery {
      * @param {string} data - The historical data to add
      * @returns {Promise<void>}
      */
-    async addHistoricalData(userId, date) {
-        const sql = 'INSERT INTO historical (user_id, date) VALUES (?, ?)';
-        const value = [userId, date];
+    async addHistoricalData(date, chatId, chatTitle, userId) {
+        const sql = 'INSERT INTO historical (date, chat_id, chat_title, user_id) VALUES (?, ?, ?, ?)';
+        const value = [date, chatId, chatTitle, userId];
         return this.executeQuery(sql, value);
     }
 

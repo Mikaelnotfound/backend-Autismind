@@ -27,7 +27,7 @@ class Historico {
      */
     async salvarConversa() {
         try {
-            await HistoricalQuerys.addHistoricalData(this.id_user, this.data);
+            await HistoricalQuerys.addHistoricalData(this.data, this.id_conversa, this.titulo, this.id_user);
             console.log(`Conversa "${this.titulo}" foi salva no histórico.`);
         } catch (error) {
             console.error('Erro ao salvar conversa no histórico:', error.message);

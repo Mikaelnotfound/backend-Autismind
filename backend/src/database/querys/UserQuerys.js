@@ -40,9 +40,9 @@ class UserUqerys extends DatabaseQuery {
      * @param {string} password - The hashed password of the user
      * @returns {Promise<void>}
      */
-    async addUser(username, email, password) {
-        const sql = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
-        const value = [username, email, password];
+    async addUser(username, email, password, communication_level) {
+        const sql = 'INSERT INTO users (username, email, password, communication_level) VALUES (?, ?, ?, ?)';
+        const value = [username, email, password, communication_level];
         return this.executeQuery(sql, value);
     }
 

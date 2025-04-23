@@ -189,4 +189,10 @@ Se você tiver alguma dúvida ou quiser discutir sobre o projeto, pode entrar em
 - E-mail (institucional): vpsv1@aluno.ifal.edu.br
 - GitHub: [peskyBeecode](https://github.com/peskyBeecode)
 
+**Tales Rafael**
+- E-mail (institucional): trsl2@aluno.ifal.edu.br
+- GitHub: [talitosud007](https://github.com/talitosud007)
+
+
+
 Estamos abertos para sugestões e contribuições!

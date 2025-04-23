@@ -1,5 +1,6 @@
 const ChatQuerys = require('../database/querys/ChatQuerys');
 const MessageQuerys = require('../database/querys/MessageQuerys');
+const HistoricalQuerys = require('../database/querys/HistoricalQuerys');
 
 class Conversa {
     constructor(id_conversa, data, titulo, id_user, id_personagem) {
@@ -27,8 +28,9 @@ class Conversa {
     async salvarConversa() {
         try {
             const date = new Date().toISOString().slice(0, 19).replace('T', ' '); // Formata a data
-            await ChatQuerys.addChat(date, this.titulo, this.id_user, this.id_personagem);
-            console.log('Conversa salva com sucesso!');
+            const idConversa = await ChatQuerys.addChat(date, this.titulo, this.id_user, this.id_personagem);
+            this.id_conversa = idConversa; // Define o ID da conversa
+            console.log('Conversa salva com sucesso! ID:', this.id_conversa);
         } catch (error) {
             console.error('Erro ao salvar conversa:', error.message || error);
         }
@@ -37,6 +39,12 @@ class Conversa {
     async salvarNoHistorico() {
         try {
             const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            console.log('Salvando no histórico:', {
+                date,
+                chat_id: this.id_conversa,
+                chat_title: this.titulo,
+                user_id: this.id_user
+            }); // Adicione este log para depuração
             await HistoricalQuerys.addHistorical(date, this.id_conversa, this.titulo, this.id_user);
             console.log('Conversa salva no histórico com sucesso!');
         } catch (error) {

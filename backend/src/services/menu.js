@@ -1,5 +1,6 @@
 const readlineSync = require('readline-sync');
-
+const bcrypt = require('bcrypt');
+const verifyEmail = require('../utils/verify')
 const Usuario = require('../class/Usuario');
 
 const menuAdmin = require('./menuAdmin');
@@ -40,11 +41,18 @@ class Menu {
 
     async login() {
         try {
-            const email = readlineSync.question("Digite seu email: ");
-            const senha = readlineSync.question("Digite sua senha: ");
+            let email = readlineSync.question("Digite seu email: ");
+            while(!verifyEmail(email)){
+                email = readlineSync.question("Digite um email válido: ");
+            }
+
+            let senha = readlineSync.question("Digite sua senha: ");
+            if(senha.trim() === ''){
+                senha = readlineSync.question("Digite uma senha válida: ");
+            }
 
             const user = await Usuario.obterUsuarioPorEmail(email);
-            if (user && user.senha === senha) {
+            if (user && await bcrypt.compare(senha, user.senha)) {
                 console.log(`Bem-vindo, ${user.username}!`);
                 if (user.email === process.env.EMAIL_ADM || user.email === 'admin123@proton.me') {
                     await this.menuAdmin(user);
@@ -61,10 +69,27 @@ class Menu {
 
     async registrar() {
         try {
-            const username = readlineSync.question("Digite seu nome de usuário: ");
-            const email = readlineSync.question("Digite seu email: ");
-            const senha = readlineSync.question("Digite sua senha: ");
-            const nivel_comunicacao = readlineSync.question("Digite seu nível de comunicação")
+            let username = readlineSync.question("Digite seu nome de usuário: ");
+            while(username.trim() === ''){
+                username = readlineSync.question("Digite um nome de usuário válido: ");
+            }
+
+            let email = readlineSync.question("Digite seu email: ");
+            while(!verifyEmail(email)){
+                email = readlineSync.question("Digite um email válido: ");
+            }
+            
+            let senha = readlineSync.question("Digite sua senha: ");
+            if(senha.trim() === ''){
+                senha = readlineSync.question("Digite uma senha válida: ");
+            }
+            const senhaHashed = await bcrypt.hash(senha, 10);
+            senha = senhaHashed;
+            
+            let nivel_comunicacao = readlineSync.question("Digite seu nível de comunicação")
+            while(!nivel_comunicacao.trim() === ''){
+                username = readlineSync.question("Digite seu nome de usuário: ");
+            }
 
             const novoUsuario = new Usuario(null, username, senha, email, nivel_comunicacao);
             await novoUsuario.salvarUsuario();
