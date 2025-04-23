@@ -56,6 +56,8 @@ backend/
 │   │   ├── menu.js
 │   │   ├── menuAdmin.js
 │   │   └── menuUsuario.js
+|   ├──utils/
+|   |  └── verify.js         # Validação de entrada
 │   ├── App.js               # Arquivo principal para execução
 ├── .env                     # Variáveis de ambiente
 ├── package.json             # Dependências do projeto
