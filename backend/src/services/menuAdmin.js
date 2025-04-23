@@ -2,7 +2,6 @@ const readlineSync = require('readline-sync');
 
 const Personagem = require('../class/Personagem');
 const Usuario = require('../class/Usuario');
-// const Historico = require('../class/Historico');
 const Conversa = require('../class/Conversa');
 
 const Menu = require('../services/menu');
@@ -48,7 +47,7 @@ async function menuAdmin() {
                     }
                     break;
                 case "3":
-                    continuar = false; // Volta para o menu principal
+                    continuar = false;
                     break;
                 default:
                     console.log("Opção inválida.");

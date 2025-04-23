@@ -28,7 +28,7 @@ class Menu {
                         break;
                     case "3":
                         console.log("Saindo...");
-                        continuar = false; // Define a flag para sair do loop
+                        continuar = false;
                         break;
                     default:
                         console.log("Opção inválida.");

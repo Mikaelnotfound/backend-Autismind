@@ -72,11 +72,11 @@ async function menuUsuario(user) {
                         user.id,
                         conversaSelecionada.id_personagem
                     );
-                    await conversa.salvarMensagem('user', mensagem); // Salva a mensagem como enviada pelo usuário // Salva a mensagem como enviada pelo usuário
+                    await conversa.salvarMensagem('user', mensagem); // Salva a mensagem como enviada pelo usuário
                     console.log("Mensagem enviada com sucesso!");
                     break;
                 case "3":
-                    continuar = false; // Volta para o menu principal
+                    continuar = false;
                     break;
                 default:
                     console.log("Opção inválida.");
