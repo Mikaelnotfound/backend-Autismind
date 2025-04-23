@@ -5,7 +5,7 @@ const HistoricalQuerys = require('../database/querys/HistoricalQuerys');
 class Conversa {
     constructor(id_conversa, data, titulo, id_user, id_personagem) {
         this.id_conversa = id_conversa;
-        this.data = data || new Date().toISOString().slice(0, 19).replace('T', ' ');
+        this.data = data || new Date().toUTCString().slice(0, 19).replace('T', ' ');
         this.titulo = titulo;
         this.id_user = id_user;
         this.id_personagem = id_personagem;

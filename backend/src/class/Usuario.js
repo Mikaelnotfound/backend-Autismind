@@ -49,8 +49,12 @@ class Usuario {
      */
     async salvarUsuario() {
         try {
-            await UserQuerys.addUser(this.username, this.email, this.senha, this.nivel_comunicacao);
-            console.log('Usuário salvo com sucesso!');
+            if(await UserQuerys.verifyUser(this.username, this.email)){
+                console.log("Este usuário ja existe");
+            }else {
+                await UserQuerys.addUser(this.username, this.email, this.senha, this.nivel_comunicacao);
+                console.log('Usuário salvo com sucesso!');
+            }
         } catch (error) {
             console.error('Erro ao salvar usuário:', error.message);
             throw error;
