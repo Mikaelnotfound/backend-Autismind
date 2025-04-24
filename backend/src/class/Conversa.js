@@ -17,7 +17,7 @@ class Conversa {
      */
     async salvarMensagem(sent_by, content) {
         try {
-            const shipping_date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            const shipping_date = new Date().toUTCString().slice(0, 19).replace('T', ' ');
             await MessageQuerys.addMessage(shipping_date, sent_by, content, this.id_user, this.id_conversa);
             console.log('Mensagem salva com sucesso na conversa!');
         } catch (error) {
@@ -27,7 +27,7 @@ class Conversa {
 
     async salvarConversa() {
         try {
-            const date = new Date().toISOString().slice(0, 19).replace('T', ' '); // Formata a data
+            const date = new Date().toUTCString().slice(0, 19).replace('T', ' '); // Formata a data
             const idConversa = await ChatQuerys.addChat(date, this.titulo, this.id_user, this.id_personagem);
             this.id_conversa = idConversa; // Define o ID da conversa
             console.log('Conversa salva com sucesso! ID:', this.id_conversa);
@@ -38,7 +38,7 @@ class Conversa {
 
     async salvarNoHistorico() {
         try {
-            const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            const date = new Date().toUTCString().slice(0, 19).replace('T', ' ');
 
             await HistoricalQuerys.addHistorical(date, this.id_conversa, this.titulo, this.id_user);
             console.log('Conversa salva no histórico com sucesso!');
