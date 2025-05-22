@@ -1,5 +1,6 @@
 const query = require('../database/querys/UserQuerys'); // Import the database connection
 const bcrypt = require('bcrypt'); // Import bcrypt for password hashing
+const verifyEmail = require('../utils/verify');
 
 
 class UserLoginController {
@@ -7,8 +8,12 @@ class UserLoginController {
         try {
             const { email, password } = req.body;
 
-            // Verifique se os campos obrigatórios estão presentes
-            if (!email || !password) {
+            // check if email and passoword are valid
+            if (!verifyEmail(email)) {
+                return res.status(400).json({ message: 'Invalid email format' });
+            }
+
+            if (!password) {
                 return res.status(400).json({ message: 'Email and password are required' });
             }
 

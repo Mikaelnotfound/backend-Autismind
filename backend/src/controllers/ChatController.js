@@ -1,5 +1,6 @@
 const query = require('../database/querys/ChatQuerys');
 const queryUser = require('../database/querys/UserQuerys');
+const queryHistorical = require('../database/querys/HistoricalQuerys');
 
 class ChatController {
     /**
@@ -27,10 +28,11 @@ class ChatController {
      */
     async addChat(req, res) {
         try {
-            const { date, user_id, character_id } = req.body;
+            const { user_id, character_id, title } = req.body;
+            let { date } = req.body;
 
-            if (!date || !user_id || !character_id) {
-                return res.status(400).json({ message: 'date, user_id, and character_id are required' });
+            if (!user_id || !character_id || !title) {
+                return res.status(400).json({ message: 'user_id, and character_id are required' });
             }
 
             const user = await queryUser.getUserId(user_id);
@@ -38,7 +40,13 @@ class ChatController {
                 return res.status(404).json({ message: 'User not found' });
             }
 
-            await query.addChat(date, user_id, character_id);
+            if (!date){
+                date = new Date();
+                date = date.toISOString().slice(0, 19).replace('T', ' ');
+            }
+
+            const chat = await query.addChat(date, title, user_id, character_id);
+            await queryHistorical.addHistoricalData(date, chat, title, user_id);
             res.status(201).json({ message: 'Chat created successfully' });
         } catch (error) {
             console.error(error);

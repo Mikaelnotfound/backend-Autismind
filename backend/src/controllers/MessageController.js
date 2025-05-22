@@ -42,8 +42,10 @@ class MessageController {
     async postNewMessage(req, res) {
         try {
             const { id: chat_id } = req.params;
-            const { shipping_date, user_id, content, sent_by } = req.body;
-            if (!shipping_date || !user_id || !content || !sent_by) {
+            const { user_id, content, sent_by } = req.body;
+            let { shipping_date } = req.body;
+
+            if (!user_id || !content || !sent_by) {
                 return res.status(400).json({ message: 'shipping_date, user_id, content and sent_by are required' });
             }
 
@@ -57,7 +59,12 @@ class MessageController {
                 return res.status(400).json({ message: 'user not found' });
             }
 
-            await query.addMessage(shipping_date, user_id, chat_id, content, sent_by);
+            if(!shipping_date) {
+                shipping_date = new Date();
+                shipping_date = shipping_date.toISOString().slice(0, 19).replace('T', ' ');
+            }
+
+            await query.addMessage(shipping_date, sent_by, content, user_id, chat_id);
             res.status(200).json({ message: 'message registered successfully' });
         } catch (error) {
             console.error(error);

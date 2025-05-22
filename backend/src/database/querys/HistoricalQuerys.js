@@ -6,8 +6,8 @@ class HistoricalQuerys extends DatabaseQuery {
      * @param {number} userId - The ID of the user
      * @returns {Promise<Array>} - List of historical data
      */
-    async getHistoricalData(userId) {
-        const sql = 'SELECT * FROM historical WHERE date = ? ORDER BY id DESC';
+    async getHistoricalByUserId(userId) {
+        const sql = 'SELECT * FROM historical WHERE user_id = ? ORDER BY date DESC';
         const value = [userId];
         return this.executeQuery(sql, value);
     }

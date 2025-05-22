@@ -4,18 +4,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 dotenv.config();
 
-
+const routes = require('./routes.js');
 const pool = require('./database/Pool/Pool.js');
-const menu = require('./services/menu.js');
 
+app.use(express.json());
+app.use('/api', routes);
 
 (async () => {
   try {
     await pool.connect();
     console.log('Database synchronized successfully.');
-    
-    const Menu = new menu();
-    await Menu.menuPrincipal();
     
     app.listen(PORT, () => {
       console.log(`Server is running on port http://localhost:${PORT}`);

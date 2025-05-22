@@ -1,8 +1,9 @@
 const query = require('../database/querys/UserQuerys'); // Import the database connection
 const bcrypt = require('bcrypt');
+const verifyEmail = require('../utils/verify');
 
 
-class RegisterController {
+class UserRegisterController {
     async getAllUsers(req, res) {
         try {
             const users = await query.getAllUsers(); // Fetch all users from the database
@@ -31,19 +32,24 @@ class RegisterController {
 
     async postNewUser(req, res) {
         try {
-            const { username, password, email } = req.body; // Extract username, password, and email from the request body
+            const { username, password, email, communication_level } = req.body; // Extract username, password, and email from the request body
+            
+            // check if email is valid
+            if (!verifyEmail(email)) {
+                return res.status(400).json({ message: 'Invalid email format' });
+            }
+            
             // Check if username, password, and email are provided
-            if (!username || !password || !email) {
-                return res.status(400).json({ message: 'Username, email and password are required' });
+            if (!username || !password || !communication_level) {
+                return res.status(400).json({ message: 'Username, password and communication level are required' });
             }
 
-            const verify = await query.verifyUser(username, email); // Check if user already exists in the database
-
-            if (verify) {
+            const userExists = await query.verifyUser(username, email); // Check if user already exists in the database
+            if (userExists) {
                 return res.status(409).json({ message: 'User already exists' });
             } else {
                 const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
-                await query.addUser(username, email, hashedPassword); // Create a new user in the database
+                await query.addUser(username, email, hashedPassword, communication_level); // Create a new user in the database
                 res.status(201).json({ message: 'User registered successfully' });
             }
         } catch (error) {
@@ -100,4 +106,4 @@ class RegisterController {
 }
 
 
-module.exports = new RegisterController();
+module.exports = new UserRegisterController();
