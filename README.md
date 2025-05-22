@@ -8,6 +8,7 @@ Este é o backend do projeto **AutisMind**, desenvolvido em Node.js. Ele fornece
 
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Estrutura do Projeto](#estrutura-do-projeto)
+- [Equipe de desenvolvedores](#-desenvolvedores)
 - [Configuração do Ambiente](#configuração-do-ambiente)
 - [Instalação](#instalação)
 - [Execução](#execução)
@@ -26,7 +27,6 @@ Este é o backend do projeto **AutisMind**, desenvolvido em Node.js. Ele fornece
 - **Node.js**: Ambiente de execução JavaScript.
 - **MySQL**: Banco de dados relacional.
 - **dotenv**: Gerenciamento de variáveis de ambiente.
-- **readline-sync**: Biblioteca para entrada de dados no terminal.
 - **bcrypt**: Hashing de senhas.
 - **mysql2**: Biblioteca para conexão com o MySQL.
 
