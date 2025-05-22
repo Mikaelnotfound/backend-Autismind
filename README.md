@@ -69,10 +69,10 @@ backend/
 
 | Desenvolvedor | Função | Perfil GitHub      |
 | :------------ | :----- | :----------------- |
-| ![Mikael Carlos](assets/img-profile/mikael.png) | Backend - Suporte Geral | [MIkaelpeganinguem](https://github.com/MIkaelpeganinguem) |
-| |[Mísia Taís](assets/img-profile/tais.png) | Frontend | [misiatais](https://github.com/misiatais)
-| ![Vitória Priscila](assets/img-profile/tori.png) | Frontend | [peskyBeecode](https://github.com/peskyBeecode)
-| ![Tales Rafael](assets/img-profile/tales.jpeg) | Frontend | [talitosud007](https://github.com/talitosud007)
+| <img src="assets/img-profile/mikael.png" alt="Mikael Carlos" width="80"> | Backend - Suporte Geral | [MIkaelpeganinguem](https://github.com/MIkaelpeganinguem) |
+| <img src="assets/img-profile/tais.png" alt="Mísia Taís" width="80"> | Frontend | [misiatais](https://github.com/misiatais)
+| <img src="assets/img-profile/tales.jpeg" alt="Tales Rafael" width="80"> | Frontend | [talitosud007](https://github.com/talitosud007)
+| <img src="assets/img-profile/tori.png" alt="Vitória Priscila" width="80"> | Frontend | [peskyBeecode](https://github.com/peskyBeecode)
 
 ---
 ## ⚙️ Configuração do Ambiente
