@@ -65,7 +65,16 @@ backend/
 ```
 
 ---
+## 👨‍💻 Desenvolvedores
 
+| Desenvolvedor | Função | Perfil GitHub      |
+| :------------ | :----- | :----------------- |
+| ![Mikael Carlos](assets/img-profile/mikael.png) | Backend - Suporte Geral | [MIkaelpeganinguem](https://github.com/MIkaelpeganinguem) |
+| |[Mísia Taís](assets/img-profile/tais.png) | Frontend | [misiatais](https://github.com/misiatais)
+| ![Vitória Priscila](assets/img-profile/tori.png) | Frontend | [peskyBeecode](https://github.com/peskyBeecode)
+| ![Tales Rafael](assets/img-profile/tales.jpeg) | Frontend | [talitosud007](https://github.com/talitosud007)
+
+---
 ## ⚙️ Configuração do Ambiente
 
 1. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
@@ -180,21 +189,6 @@ Se você tiver alguma dúvida ou quiser discutir sobre o projeto, pode entrar em
 **Mikael Carlos**
 - E-mail: carlosmikael273@gmail.com
 - GitHub: [MIkaelpeganinguem](https://github.com/MIkaelpeganinguem)
-
-**Contribuições de:**
-
-**Misia Taís**
-- E-mail (institucional): Mtssm2@aluno.ifal.edu.br
-- GitHub: [misiatais](https://github.com/misiatais)
-
-**Vitória Priscila**
-- E-mail (institucional): vpsv1@aluno.ifal.edu.br
-- GitHub: [peskyBeecode](https://github.com/peskyBeecode)
-
-**Tales Rafael**
-- E-mail (institucional): trsl2@aluno.ifal.edu.br
-- GitHub: [talitosud007](https://github.com/talitosud007)
-
 
 
 Estamos abertos para sugestões e contribuições!
