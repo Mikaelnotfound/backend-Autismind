@@ -80,12 +80,12 @@ backend/
 1. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
     ```bash
-    DB_HOST=localhost
-    DB_USER=root
+    DB_HOST=
+    DB_USER=
     DB_PASSWORD=
-    DB_NAME=db_autismind
-    PORT=3000
-    EMAIL_ADM=admin123@example.com
+    DB_NAME=
+    PORT=
+    EMAIL_ADM=
     ```
 
 2. Certifique-se de que o MySQL está instalado e configurado no seu sistema.
