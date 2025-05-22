@@ -9,10 +9,15 @@ class ChatController {
     async getAllChats(req, res) {
         try {
             const { userId } = req.params;
+            const loggedUserId = req.user.id; // Vem do token JWT
 
             const user = await queryUser.getUserId(userId);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
+            }
+
+            if (parseInt(userId) !== loggedUserId) {
+                return res.status(403).json({ message: 'Access denied' });
             }
 
             const chats = await query.getAllChats(userId);
@@ -40,7 +45,7 @@ class ChatController {
                 return res.status(404).json({ message: 'User not found' });
             }
 
-            if (!date){
+            if (!date) {
                 date = new Date();
                 date = date.toISOString().slice(0, 19).replace('T', ' ');
             }

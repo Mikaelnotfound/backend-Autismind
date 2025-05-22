@@ -2,6 +2,7 @@ const query = require('../database/querys/UserQuerys'); // Import the database c
 const bcrypt = require('bcrypt'); // Import bcrypt for password hashing
 const verifyEmail = require('../utils/verify');
 
+const Auth = require('../utils/auth'); // Import the Auth class
 
 class UserLoginController {
     async getUserLogin(req, res) {
@@ -29,8 +30,9 @@ class UserLoginController {
                 return res.status(401).json({ message: 'Invalid password' });
             }
 
-            // Retorne uma resposta de sucesso (você pode gerar um token JWT aqui, se necessário)
-            res.status(200).json({ message: 'Login successful', user: { id: user.id, username: user.username, email: user.email } });
+            const token = Auth.generateToken(user);
+
+            res.status(200).json({ message: 'Login successful', user: { id: user.id, username: user.username, email: user.email, jwt_token: token } });
         } catch (error) {
             console.error('Error during login:', error);
             res.status(500).json({ message: 'Internal server error', error: error.message || error });

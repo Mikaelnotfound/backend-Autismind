@@ -12,10 +12,10 @@ class Pool {
      * @param {string} database - Database name
      */
     constructor(
-        host = process.env.DB_HOST || 'localhost',
-        user = process.env.DB_USER || 'root',
-        password = process.env.DB_PASSWORD || '',
-        database = process.env.DB_NAME || 'db_autismind'
+        host = process.env.DB_HOST,
+        user = process.env.DB_USER,
+        password = process.env.DB_PASSWORD,
+        database = process.env.DB_NAME
     ) {
         this.config = {
             host: host,

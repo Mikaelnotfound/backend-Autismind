@@ -5,12 +5,17 @@ class MessageController {
     async getAllMessagesByUser(req, res) {
         try {
             const { userId } = req.params;
+            const loggedUserId = req.user.id;
+            
             const user = await queryUser.getUserId(userId); // Fetch user by ID from the database
-
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
 
+            if (parseInt(userId) !== loggedUserId) {
+                return res.status(403).json({ message: 'Access denied' });
+            }
+        
             const messages = await query.getAllMessagesByUser(userId);
             res.status(200).json({ messages });
         } catch (error) {
@@ -59,7 +64,7 @@ class MessageController {
                 return res.status(400).json({ message: 'user not found' });
             }
 
-            if(!shipping_date) {
+            if (!shipping_date) {
                 shipping_date = new Date();
                 shipping_date = shipping_date.toISOString().slice(0, 19).replace('T', ' ');
             }
