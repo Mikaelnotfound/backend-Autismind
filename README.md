@@ -98,7 +98,7 @@ backend/
 
 1. Clone o repositório:
     ```bash
-    git clone https://github.com/seu-usuario/autismind-backend.git
+    git clone https://github.com/Mikaelpeganinguem/autismind-backend.git
     cd autismind-backend
     ```
 
