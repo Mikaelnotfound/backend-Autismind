@@ -1,6 +1,6 @@
 # AutisMind Backend
 
-Este é o backend do projeto **AutisMind**, desenvolvido em Node.js. Ele fornece uma interface de terminal para gerenciar usuários, mensagens, chats, personagens e dados históricos. O sistema foi projetado para rodar diretamente no terminal, permitindo interação por meio de menus.
+Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recursos para cadastro, autenticação, gerenciamento de usuários, personagens, chats, mensagens e históricos. Ela serve como backend para aplicações voltadas ao suporte de pessoas com Neurodivergência, e dificuldades na conversação, permitindo integração com bancos de dados MySQL e autenticação JWT.
 
 ---
 
@@ -12,10 +12,6 @@ Este é o backend do projeto **AutisMind**, desenvolvido em Node.js. Ele fornece
 - [Configuração do Ambiente](#configuração-do-ambiente)
 - [Instalação](#instalação)
 - [Execução](#execução)
-- [Funcionalidades](#funcionalidades)
-  - [Menu Principal](#menu-principal)
-  - [Menu do Administrador](#menu-do-administrador)
-  - [Menu do Usuário](#menu-do-usuário)
 - [Banco de Dados](#banco-de-dados)
 - [Contribuição](#contribuição)
 - [Contato](#contato)
@@ -27,8 +23,10 @@ Este é o backend do projeto **AutisMind**, desenvolvido em Node.js. Ele fornece
 - **Node.js**: Ambiente de execução JavaScript.
 - **MySQL**: Banco de dados relacional.
 - **dotenv**: Gerenciamento de variáveis de ambiente.
+- **JWT**: Autenticação de usuários.
 - **bcrypt**: Hashing de senhas.
 - **mysql2**: Biblioteca para conexão com o MySQL.
+- **Swagger**: Biblioteca para documentar a API.
 
 ---
 
@@ -36,6 +34,8 @@ Este é o backend do projeto **AutisMind**, desenvolvido em Node.js. Ele fornece
 
 ```plaintext
 backend/
+├── docs/
+|   └── swagger.js           # Objeto com a estrutura da documentação
 ├── src/
 │   ├── class/               # Classes principais do sistema
 │   │   ├── Usuario.js
@@ -52,11 +52,8 @@ backend/
 │   │       ├── HistoricalQuerys.js
 │   │       ├── MessageQuerys.js
 │   │       └── UserQuerys.js
-│   ├── services/            # Menus e lógica de interação
-│   │   ├── menu.js
-│   │   ├── menuAdmin.js
-│   │   └── menuUsuario.js
 |   ├──utils/
+|   |  ├── Auth.js           # Autenticação de usuários
 |   |  └── verify.js         # Validação de entrada
 │   ├── App.js               # Arquivo principal para execução
 ├── .env                     # Variáveis de ambiente
@@ -80,11 +77,16 @@ backend/
 1. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
     ```bash
+    JWT_SECRET=
+    JWT_EXPIRATION=
+    PORT=
+    HOST=
+    DB_NAME=
     DB_HOST=
+    DB_PORT=
     DB_USER=
     DB_PASSWORD=
-    DB_NAME=
-    PORT=
+    DB_DIALECT=
     EMAIL_ADM=
     ```
 
@@ -118,33 +120,17 @@ Para iniciar o sistema, execute o seguinte comando no terminal:
 node src/App.js
 ```
 
-O menu principal será exibido no terminal, permitindo que você interaja com o sistema.
+No terminal você terá dois logs na tela, com as seguintes rotas:
 
----
+Server is running on port:
+```bash
+http://localhost:${PORT}
+```
 
-## 📖 Funcionalidades
-
-### Menu Principal
-
-- **1. Login:** Permite que o usuário faça login no sistema.
-- **2. Registrar:** Permite que um novo usuário seja registrado.
-- **3. Sair:** Encerra o programa.
-
-### Menu do Administrador
-
-Após fazer login como administrador, você terá acesso às seguintes opções:
-
-- **1. Cadastrar Personagem:** Permite criar novos personagens no sistema.
-- **2. Visualizar Usuários e Mensagens:** Exibe todos os usuários cadastrados e permite visualizar as mensagens de um usuário específico.
-- **3. Sair:** Retorna ao menu principal.
-
-### Menu do Usuário
-
-Após fazer login como usuário, você terá acesso às seguintes opções:
-
-- **1. Criar Conversa:** Permite iniciar uma nova conversa com um personagem.
-- **2. Enviar Mensagem:** Permite enviar mensagens para um personagem em uma conversa existente.
-- **3. Sair:** Retorna ao menu principal.
+API documentation available at 
+```bash
+http://${HOST}:${PORT}/api/api-docs
+```
 
 ---
 

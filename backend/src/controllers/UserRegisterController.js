@@ -50,7 +50,10 @@ class UserRegisterController {
             } else {
                 const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
                 await query.addUser(username, email, hashedPassword, communication_level); // Create a new user in the database
-                res.status(201).json({ message: 'User registered successfully' });
+                res.status(201).json({
+                    message: 'User registered successfully',
+                    user: { username, email, communication_level }
+                });
             }
         } catch (error) {
             res.status(500).json({ message: 'Internal server error', error: error.message || error });

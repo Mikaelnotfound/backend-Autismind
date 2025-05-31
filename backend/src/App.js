@@ -6,9 +6,12 @@ const PORT = process.env.PORT || 3000;
 
 const routes = require('./routes.js');
 const pool = require('./database/Pool/Pool.js');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('../docs/swagger.js');
 
 app.use(express.json());
 app.use('/api', routes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 (async () => {
   try {
@@ -17,6 +20,7 @@ app.use('/api', routes);
     
     app.listen(PORT, () => {
       console.log(`Server is running on port http://localhost:${PORT}`);
+      console.log(`API documentation available at http://localhost:${PORT}/api/api-docs`);
     });
   } catch (error) {
     console.error('Error during server startup:', error);
