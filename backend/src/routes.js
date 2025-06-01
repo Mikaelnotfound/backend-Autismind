@@ -18,7 +18,7 @@ router.put('/users/:id', UserRegisterController.updateUser); // Update user by I
 router.delete('/users/:id', UserRegisterController.deleteUser); // Delete user by ID
 
 // Login routes
-router.get('/login/', userLoginController.getUserLogin); // Fetch user by ID
+router.post('/login/', userLoginController.postUserLogin); // Fetch user by ID
 
 // Historical routes
 router.get('/users/:userId/historical/', Auth.middlewareVerifyToken.bind(Auth), historicalController.getHistoricalUser); // Fetch historical data for a user by ID

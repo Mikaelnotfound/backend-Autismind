@@ -5,7 +5,7 @@ const verifyEmail = require('../utils/verify');
 const Auth = require('../utils/auth'); // Import the Auth class
 
 class UserLoginController {
-    async getUserLogin(req, res) {
+    async postUserLogin(req, res) {
         try {
             const { email, password } = req.body;
 
