@@ -196,7 +196,7 @@ document.querySelector('.item-menu .bi-box-arrow-right').closest('a').addEventLi
     e.preventDefault();
     if (confirm('Quer mesmo nos deixar?:(')) {
         localStorage.removeItem('usuario');
-        window.location.href = 'inicio.html';
+        window.location.href = 'index.html';
     }
 });
 
