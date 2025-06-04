@@ -137,7 +137,7 @@ O banco de dados contém as seguintes tabelas:
 
 ## MER do Banco de Dados
 
-<img src="./assets/MER_autimind.png" width=100 heigth=100>
+<img src="./assets/MER_autimind.png" width=700 heigth=700>
 
 ---
 
