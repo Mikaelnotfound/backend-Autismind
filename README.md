@@ -107,7 +107,7 @@ backend/
 Para iniciar o sistema, execute o seguinte comando no terminal:
 
 ```bash
-node src/App.js
+npm start
 ```
 
 No terminal você terá dois logs na tela, com as seguintes rotas:
@@ -134,7 +134,6 @@ O banco de dados contém as seguintes tabelas:
 - **chat:** Armazena informações dos chats.
 - **historical:** Armazena dados históricos relacionados aos usuários.
 
----
 
 ## MER do Banco de Dados
 
