@@ -1,6 +1,6 @@
 # AutisMind Backend
 
-Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recursos para cadastro, autenticação, gerenciamento de usuários, personagens, chats, mensagens e históricos. Ela serve como backend para aplicações voltadas ao suporte de pessoas com Neurodivergência, e dificuldades na conversação, permitindo integração com bancos de dados MySQL e autenticação JWT.
+Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recursos para cadastro, autenticação, gerenciamento de usuários, personagens, chats, mensagens e históricos. Ela serve como backend para a aplicação que é voltada ao suporte de pessoas com Neurodivergência, e dificuldades na conversação, permitindo integração com bancos de dados MySQL e autenticação JWT.
 
 ---
 
@@ -8,7 +8,6 @@ Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recurs
 
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Estrutura do Projeto](#estrutura-do-projeto)
-- [Equipe de desenvolvedores](#-desenvolvedores)
 - [Configuração do Ambiente](#configuração-do-ambiente)
 - [Instalação](#instalação)
 - [Execução](#execução)
@@ -24,6 +23,7 @@ Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recurs
 - **MySQL**: Banco de dados relacional.
 - **dotenv**: Gerenciamento de variáveis de ambiente.
 - **JWT**: Autenticação de usuários.
+- **Cors**: Permite que aplicações front-end de outros domínios acessem a API com segurança.
 - **bcrypt**: Hashing de senhas.
 - **mysql2**: Biblioteca para conexão com o MySQL.
 - **Swagger**: Biblioteca para documentar a API.
@@ -62,19 +62,9 @@ backend/
 ```
 
 ---
-## 👨‍💻 Desenvolvedores
-
-| Desenvolvedor | Função | Perfil GitHub      |
-| :------------ | :----- | :----------------- |
-| <img src="assets/img-profile/mikael.png" alt="Mikael Carlos" width="80"> | Backend - Suporte Geral | [MIkaelpeganinguem](https://github.com/MIkaelpeganinguem) |
-| <img src="assets/img-profile/tais.png" alt="Mísia Taís" width="80"> | Frontend | [misiatais](https://github.com/misiatais)
-| <img src="assets/img-profile/tales.jpeg" alt="Tales Rafael" width="80"> | Frontend | [talitosud007](https://github.com/talitosud007)
-| <img src="assets/img-profile/tori.png" alt="Vitória Priscila" width="80"> | Frontend | [peskyBeecode](https://github.com/peskyBeecode)
-
----
 ## ⚙️ Configuração do Ambiente
 
-1. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+1. Renomeei o arquivo `.env.example` para `.env`, e configure as seguintes variáveis:
 
     ```bash
     JWT_SECRET=
@@ -99,7 +89,6 @@ backend/
 1. Clone o repositório:
     ```bash
     git clone https://github.com/Mikaelpeganinguem/platform-AutisMind.git
-    cd autismind-backend
     ```
 
 2. Instale as dependências:
@@ -146,6 +135,12 @@ O banco de dados contém as seguintes tabelas:
 
 ---
 
+## MER do Banco de Dados
+
+<img src="./assets/MER_autimind.png" width=100 heigth=100>
+
+---
+
 ## 🤝 Contribuição
 
 1. Faça um Fork do projeto.
@@ -177,4 +172,7 @@ Se você tiver alguma dúvida ou quiser discutir sobre o projeto, pode entrar em
 - GitHub: [MIkaelpeganinguem](https://github.com/MIkaelpeganinguem)
 
 
-Estamos abertos para sugestões e contribuições!
+Estou aberto para sugestões e contribuições!
+
+
+> Mikael Carlos
