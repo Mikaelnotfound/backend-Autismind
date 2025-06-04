@@ -12,6 +12,7 @@ Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recurs
 - [Instalação](#instalação)
 - [Execução](#execução)
 - [Banco de Dados](#banco-de-dados)
+- [MER do Banco](#mer-do-banco-de-dados)
 - [Contribuição](#contribuição)
 - [Contato](#contato)
 
@@ -137,7 +138,7 @@ O banco de dados contém as seguintes tabelas:
 
 ## MER do Banco de Dados
 
-<img src="./assets/MER_autimind.png" width=700 heigth=700>
+<img src="./assets/MER_autimind.png" width=500 heigth=500>
 
 ---
 
