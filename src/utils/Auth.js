@@ -1,4 +1,6 @@
-const jwt = require('jsonwebtoken'); // Import JWT for token generation
+"use strict";
+
+const jwt = require('jsonwebtoken');
 
 class Auth {
     constructor() {

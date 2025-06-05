@@ -1,3 +1,5 @@
+"use strict";
+
 const DatabaseQuery = require('../DatabaseQuery');
 
 class HistoricalQuerys extends DatabaseQuery {
