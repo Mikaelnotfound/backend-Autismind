@@ -34,32 +34,37 @@ Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recurs
 ## 📂 Estrutura do Projeto
 
 ```plaintext
-backend/
-├── docs/
-|   └── swagger.js           # Objeto com a estrutura da documentação
-├── src/
-│   ├── class/               # Classes principais do sistema
-│   │   ├── Usuario.js
-│   │   ├── Personagem.js
-│   │   ├── Conversa.js
-│   │   ├── Historico.js
-│   ├── database/            # Configuração do banco de dados
-│   │   ├── Pool/
-│   │   │   └── Pool.js
-│   │   ├── DatabaseQuery.js
-│   │   └── querys/
-│   │       ├── ChatQuerys.js
-│   │       ├── CharacterQuerys.js
-│   │       ├── HistoricalQuerys.js
-│   │       ├── MessageQuerys.js
-│   │       └── UserQuerys.js
-|   ├──utils/
-|   |  ├── Auth.js           # Autenticação de usuários
-|   |  └── verify.js         # Validação de entrada
-│   ├── App.js               # Arquivo principal para execução
-├── .env                     # Variáveis de ambiente
-├── package.json             # Dependências do projeto
-└── README.md                # Documentação do projeto
+assets/
+└── MER_autimind.png            # Imagem do MER do banco de dados
+docs/
+└── swagger.js                  # Estrutura da documentação Swagger
+src/
+├── controllers/                # Controllers das entidades
+│   ├── CharacterController.js
+│   ├── ChatController.js
+│   ├── HistoricalController.js
+│   ├── MessageController.js
+│   ├── UserLoginController.js
+│   └── UserRegisterController.js
+├── database/                   # Configuração e queries do banco de dados
+│   ├── Pool/
+│   │   └── Pool.js
+│   ├── querys/
+│   |   ├── CharacterQuerys.js
+│   |   ├── ChatQuerys.js
+│   |   ├── HistoricalQuerys.js
+│   |   ├── MessageQuerys.js
+│   |   └── UserQuerys.js
+│   └── DatabaseQuery.js
+├── utils/
+│   ├── Auth.js                 # Autenticação de usuários
+│   └── verify.js               # Validação de entrada
+├── App.js                      # Arquivo principal para execução (backend)
+└── routes.js                   # Rotas da API
+.env                            # Variáveis de ambiente
+LICENSE                         # Licença do projeto
+package.json                    # Dependências do projeto
+README.md                       # Documentação do projeto
 ```
 
 ---
@@ -89,7 +94,7 @@ backend/
 
 1. Clone o repositório:
     ```bash
-    git clone https://github.com/Mikaelpeganinguem/platform-AutisMind.git
+    git clone https://github.com/Mikaelpeganinguem/backend-Autismind.git
     ```
 
 2. Instale as dependências:
