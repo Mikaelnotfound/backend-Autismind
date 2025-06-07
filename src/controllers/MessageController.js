@@ -26,8 +26,8 @@ class MessageController {
 
     async getAllMessageByChat(req, res) {
         try {
-            const { chatId } = req.params;
-            const { userId } = req.body;
+            const { chatId, userId } = req.params;
+            // const { userId } = req.body;
             if (!userId) {
                 return res.status(400).json({ message: 'userId is required' });
             }

@@ -358,7 +358,7 @@ const swaggerDocs = {
         }
       }
     },
-    "/chat/{chatId}/messages/": {
+    "/chat/{chatId}/messages/{userId}": {
       get: {
         tags: ["Mensagens"],
         summary: "Buscar mensagens de chat por ID",

@@ -25,7 +25,7 @@ router.get('/users/:userId/historical/', Auth.middlewareVerifyToken.bind(Auth), 
 
 // Message routes
 router.get('/users/:userId/messages/', Auth.middlewareVerifyToken.bind(Auth), MessageController.getAllMessagesByUser); // Fetch all messages by user
-router.get('/chat/:chatId/messages/', Auth.middlewareVerifyToken.bind(Auth), MessageController.getAllMessageByChat); // Fetch all messages by chat
+router.get('/chat/:chatId/messages/:userId', Auth.middlewareVerifyToken.bind(Auth), MessageController.getAllMessageByChat); // Fetch all messages by chat
 router.post('/messages/chat/:id', Auth.middlewareVerifyToken.bind(Auth), MessageController.postNewMessage); // Create a new message
 router.delete('/messages/:id', Auth.middlewareVerifyToken.bind(Auth), MessageController.deleteMessage); // Delete a message by ID
 
