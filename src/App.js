@@ -26,7 +26,7 @@ app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
     console.log('Database synchronized successfully.');
     
     app.listen(PORT, () => {
-      console.log(`Server is running on port http://localhost:${PORT}`);
+      console.log(`Server is running on port http://localhost:${PORT}/api`);
       console.log(`API documentation available at http://localhost:${PORT}/api/api-docs/`);
     });
   } catch (error) {

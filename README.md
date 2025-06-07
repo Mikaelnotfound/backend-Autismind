@@ -119,7 +119,7 @@ No terminal você terá dois logs na tela, com as seguintes rotas:
 
 Server is running on port:
 ```bash
-http://localhost:${PORT}
+http://localhost:${PORT}/api
 ```
 
 API documentation available at 
@@ -140,7 +140,7 @@ O banco de dados contém as seguintes tabelas:
 - **historical:** Armazena dados históricos relacionados aos usuários.
 
 
-## MER do Banco de Dados
+### 🧩 MER do Banco de Dados
 
 <img src="./assets/MER_autimind.png" width=500 heigth=500>
 
@@ -174,7 +174,7 @@ Se você tiver alguma dúvida ou quiser discutir sobre o projeto, pode entrar em
 
 **Mikael Carlos**
 - E-mail: carlosmikael273@gmail.com
-- GitHub: [MIkaelpeganinguem](https://github.com/MIkaelpeganinguem)
+- GitHub: [Mikaelpeganinguem](https://github.com/MIkaelpeganinguem)
 
 
 Estou aberto para sugestões e contribuições!
