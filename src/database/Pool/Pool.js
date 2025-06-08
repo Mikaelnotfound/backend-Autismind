@@ -93,7 +93,7 @@ class Pool {
                     chat_title VARCHAR(191) NOT NULL,
                     user_id INT NOT NULL,
                     FOREIGN KEY (user_id) REFERENCES users(id),
-                    FOREIGN KEY (chat_id, chat_title) REFERENCES chat(id, title)
+                    FOREIGN KEY (chat_id) REFERENCES chat(id)
                 );`,
                 `ALTER TABLE message ADD CONSTRAINT fk_chat_id FOREIGN KEY (chat_id) REFERENCES chat(id);`
             ];
