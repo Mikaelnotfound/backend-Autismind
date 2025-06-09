@@ -4,7 +4,6 @@ const query = require('../database/querys/MessageQuerys');
 const queryUser = require('../database/querys/UserQuerys');
 const queryChat = require('../database/querys/ChatQuerys');
 const queryCharacter = require('../database/querys/CharacterQuerys');
-const axios = require('axios');
 const { generateGeminiResponse, analyzeMessage } = require('../utils/geminiServices');
 require('dotenv').config();
 

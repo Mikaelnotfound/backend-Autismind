@@ -1,6 +1,6 @@
 # AutisMind Backend
 
-Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recursos para cadastro, autenticação, gerenciamento de usuários, personagens, chats, mensagens e históricos. Ela serve como backend para a aplicação que é voltada ao suporte de pessoas com Neurodivergência, e dificuldades na conversação, permitindo integração com bancos de dados MySQL e autenticação JWT.
+Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recursos para cadastro, autenticação, gerenciamento de usuários, personagens, chats, mensagens e históricos. Ela serve como backend para a aplicação que é voltada ao suporte de pessoas com Neurodivergência, e dificuldades na conversação, permitindo integração com bancos de dados MySQL, autenticação JWT e integração com a **API Gemini 2.0 Flash** para respostas de IA.
 
 ---
 
@@ -29,6 +29,7 @@ Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recurs
 - **mysql2**: Biblioteca para conexão com o MySQL.
 - **Swagger**: Biblioteca para documentar a API.
 - **axios**: Cliente HTTP para realizar requisições a APIs de forma simples e eficiente.
+- **Gemini 2.0 Flash**: API de IA generativa do Google utilizada para respostas automáticas no chat.
 
 ---
 
