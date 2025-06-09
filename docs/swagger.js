@@ -425,6 +425,7 @@ const swaggerDocs = {
       post: {
         tags: ["Mensagens"],
         summary: "Criar nova mensagem em um chat",
+        description: "Cria uma nova mensagem em um chat. Se enviada pelo usuário, a resposta do bot é gerada automaticamente pela API Gemini 2.0 Flash (Google).",
         security: [{ bearerAuth: [] }],
         parameters: [
           {
@@ -451,7 +452,7 @@ const swaggerDocs = {
           }
         },
         responses: {
-          200: { description: "message registered successfully" },
+          200: { description: "message registered successfully. Se enviado pelo usuário, a resposta do bot é gerada pela Gemini 2.0 Flash." },
           400: { description: "Dados inválidos ou chat não encontrado." }
         }
       }
