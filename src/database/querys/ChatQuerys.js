@@ -39,6 +39,18 @@ class ChatQuerys extends DatabaseQuery {
         const values = [chat_id];
         return this.executeQuery(sql, values);
     }
+
+    /**
+     * Retrieves a chat by its ID
+     * @param {number} chat_id - The ID of the chat
+     * @returns {Promise<Object|null>} - The chat object or null if not found
+     */
+    async getChatById(chat_id) {
+        const sql = 'SELECT * FROM chat WHERE id = ?';
+        const values = [chat_id];
+        const result = await this.executeQuery(sql, values);
+        return result && result.length > 0 ? result[0] : null;
+    }
 }
 
 module.exports = new ChatQuerys();

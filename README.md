@@ -28,6 +28,7 @@ Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recurs
 - **bcrypt**: Hashing de senhas.
 - **mysql2**: Biblioteca para conexão com o MySQL.
 - **Swagger**: Biblioteca para documentar a API.
+- **axios**: Cliente HTTP para realizar requisições a APIs de forma simples e eficiente.
 
 ---
 
@@ -58,7 +59,8 @@ src/
 │   └── DatabaseQuery.js
 ├── utils/
 │   ├── Auth.js                 # Autenticação de usuários
-│   └── verify.js               # Validação de entrada
+│   ├── verify.js               # Validação de entrada
+│   └── geminiServices.js       # Integração centralizada com Gemini API
 ├── App.js                      # Arquivo principal para execução (backend)
 └── routes.js                   # Rotas da API
 .env                            # Variáveis de ambiente
@@ -70,7 +72,7 @@ README.md                       # Documentação do projeto
 ---
 ## ⚙️ Configuração do Ambiente
 
-1. Renomeei o arquivo `.env.example` para `.env`, e configure as seguintes variáveis:
+1. Renomeie o arquivo `.env.example` para `.env` e configure as seguintes variáveis:
 
     ```bash
     JWT_SECRET=
@@ -84,6 +86,8 @@ README.md                       # Documentação do projeto
     DB_PASSWORD=
     DB_DIALECT=
     EMAIL_ADM=
+    GEMINI_API_KEY=
+    GEMINI_API_URL=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent
     ```
 
 2. Certifique-se de que o MySQL está instalado e configurado no seu sistema.
