@@ -181,6 +181,10 @@ Se você tiver alguma dúvida ou quiser discutir sobre o projeto, pode entrar em
 - E-mail: carlosmikael273@gmail.com
 - GitHub: [Mikaelpeganinguem](https://github.com/MIkaelpeganinguem)
 
+---
+
+### Com a participação de:
+**Anny Karolyny** : E-mail: akcp2@aluno.ifal.edu.br
 
 Estou aberto para sugestões e contribuições!
 
