@@ -99,7 +99,7 @@ README.md                       # Documentação do projeto
 
 1. Clone o repositório:
     ```bash
-    git clone https://github.com/Mikaelpeganinguem/backend-Autismind.git
+    git clone https://github.com/Mikaelnotfound/backend-Autismind.git
     ```
 
 2. Instale as dependências:
@@ -179,12 +179,9 @@ Se você tiver alguma dúvida ou quiser discutir sobre o projeto, pode entrar em
 
 **Mikael Carlos**
 - E-mail: carlosmikael273@gmail.com
-- GitHub: [Mikaelpeganinguem](https://github.com/MIkaelpeganinguem)
+- GitHub: [Mikaelnotfound](https://github.com/Mikaelnotfound)
 
 ---
-
-### Com a participação de:
-**Anny Karolyny** : E-mail: akcp2@aluno.ifal.edu.br
 
 Estou aberto para sugestões e contribuições!
 
