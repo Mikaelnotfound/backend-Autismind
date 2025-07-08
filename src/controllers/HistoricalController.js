@@ -1,14 +1,20 @@
-const query = require('../database/querys/HistoricalQuerys'); // Import the database connection
-const queryUser = require('../database/querys/UserQuerys');
+"use strict";
+
+const historicalQuerys = require('../database/querys/HistoricalQuerys');
+const userQuerys = require('../database/querys/UserQuerys');
 
 class HistoricalController {
+    constructor(historicalQuerys, userQuerys) {
+        this.historicalQuerys = historicalQuerys;
+        this.userQuerys = userQuerys;
+    }
+    
     async getHistoricalUser(req, res) {
         try {
             const { userId } = req.params;
-            const loggedUserId = req.user.id; // Vem do token JWT
-            
-            // Check if user exists in the database
-            const user = await queryUser.getUserId(userId) // Fetch user by ID from the database
+            const loggedUserId = req.user.id;
+
+            const user = await this.userQuerys.getUserId(userId)
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
@@ -16,8 +22,8 @@ class HistoricalController {
             if (parseInt(userId) !== loggedUserId) {
                 return res.status(403).json({ message: 'Access denied' });
             }
-            
-            const historical = await query.getHistoricalByUserId(userId);
+
+            const historical = await this.historicalQuerys.getHistoricalByUserId(userId);
             if (!historical) {
                 return res.status(404).json({ message: 'Historical data not found' });
             }
@@ -29,4 +35,4 @@ class HistoricalController {
     }
 }
 
-module.exports = new HistoricalController();
+module.exports = new HistoricalController(historicalQuerys, userQuerys);

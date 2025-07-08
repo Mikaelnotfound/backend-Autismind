@@ -1,97 +1,11 @@
 # AutisMind Backend
 
-Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recursos para cadastro, autenticação, gerenciamento de usuários, personagens, chats, mensagens e históricos. Ela serve como backend para a aplicação que é voltada ao suporte de pessoas com Neurodivergência, e dificuldades na conversação, permitindo integração com bancos de dados MySQL, autenticação JWT e integração com a **API Gemini 2.0 Flash** para respostas de IA.
-
----
-
-## 📋 Índice
-
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Configuração do Ambiente](#configuração-do-ambiente)
-- [Instalação](#instalação)
-- [Execução](#execução)
-- [Banco de Dados](#banco-de-dados)
-- [MER do Banco](#mer-do-banco-de-dados)
-- [Contribuição](#contribuição)
-- [Contato](#contato)
-
----
-
-## 🛠 Tecnologias Utilizadas
-
-- **Node.js**: Ambiente de execução JavaScript.
-- **MySQL**: Banco de dados relacional.
-- **dotenv**: Gerenciamento de variáveis de ambiente.
-- **JWT**: Autenticação de usuários.
-- **Cors**: Permite que aplicações front-end de outros domínios acessem a API com segurança.
-- **bcrypt**: Hashing de senhas.
-- **mysql2**: Biblioteca para conexão com o MySQL.
-- **Swagger**: Biblioteca para documentar a API.
-- **axios**: Cliente HTTP para realizar requisições a APIs de forma simples e eficiente.
-- **Gemini 2.0 Flash**: API de IA generativa do Google utilizada para respostas automáticas no chat.
-
----
-
-## 📂 Estrutura do Projeto
-
-```plaintext
-assets/
-└── MER_autimind.png            # Imagem do MER do banco de dados
-docs/
-└── swagger.js                  # Estrutura da documentação Swagger
-src/
-├── controllers/                # Controllers das entidades
-│   ├── CharacterController.js
-│   ├── ChatController.js
-│   ├── HistoricalController.js
-│   ├── MessageController.js
-│   ├── UserLoginController.js
-│   └── UserRegisterController.js
-├── database/                   # Configuração e queries do banco de dados
-│   ├── Pool/
-│   │   └── Pool.js
-│   ├── querys/
-│   |   ├── CharacterQuerys.js
-│   |   ├── ChatQuerys.js
-│   |   ├── HistoricalQuerys.js
-│   |   ├── MessageQuerys.js
-│   |   └── UserQuerys.js
-│   └── DatabaseQuery.js
-├── utils/
-│   ├── Auth.js                 # Autenticação de usuários
-│   ├── verify.js               # Validação de entrada
-│   └── geminiServices.js       # Integração centralizada com Gemini API
-├── App.js                      # Arquivo principal para execução (backend)
-└── routes.js                   # Rotas da API
-.env                            # Variáveis de ambiente
-LICENSE                         # Licença do projeto
-package.json                    # Dependências do projeto
-README.md                       # Documentação do projeto
-```
-
----
-## ⚙️ Configuração do Ambiente
-
-1. Renomeie o arquivo `.env.example` para `.env` e configure as seguintes variáveis:
-
-    ```bash
-    JWT_SECRET=
-    JWT_EXPIRATION=
-    PORT=
-    HOST=
-    DB_NAME=
-    DB_HOST=
-    DB_PORT=
-    DB_USER=
-    DB_PASSWORD=
-    DB_DIALECT=
-    EMAIL_ADM=
-    GEMINI_API_KEY=
-    GEMINI_API_URL=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent
-    ```
-
-2. Certifique-se de que o MySQL está instalado e configurado no seu sistema.
+Essa é a **API REST do AutisMind**, desenvolvida em Node.js, que oferece recursos para cadastro, autenticação, gerenciamento de usuários, personagens, chats, mensagens e históricos. Ela serve como backend para a aplicação que é voltada ao suporte de pessoas com Neurodivergência, e dificuldades na conversação, permitindo integração com bancos de dados MySQL, autenticação JWT e integração com a **API Gemini 1.5 Flash** para respostas de IA.
+<br><br>
+<div style="display:flex; gap: 10px;">
+  <img loading="lazy" alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"/>
+  <img loading="lazy" alt="Project status" height="20" src="https://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
+</div>
 
 ---
 
@@ -120,56 +34,33 @@ Para iniciar o sistema, execute o seguinte comando no terminal:
 npm start
 ```
 
-No terminal você terá dois logs na tela, com as seguintes rotas:
+Para o desenvolvimento:
 
-Server is running on port:
 ```bash
-http://localhost:${PORT}/api
+npm run dev
 ```
 
-API documentation available at 
-```bash
-http://${HOST}:${PORT}/api/api-docs
-```
+No terminal você terá dois logs com as seguintes rotas:
+
+ - Server is running on port:
+    ```bash
+    http://localhost:${PORT}/api
+    ```
+
+- API documentation available at 
+    ```bash
+    http://${HOST}:${PORT}/api/api-docs
+    ```
 
 ---
 
-## 🗄 Banco de Dados
+## Informações adicionais:
 
-O banco de dados contém as seguintes tabelas:
-
-- **users:** Armazena informações dos usuários.
-- **character:** Armazena informações dos personagens.
-- **message:** Armazena mensagens enviadas em chats.
-- **chat:** Armazena informações dos chats.
-- **historical:** Armazena dados históricos relacionados aos usuários.
-
-
-### 🧩 MER do Banco de Dados
-
-<img src="./assets/MER_autimind.png" width=500 heigth=500>
-
----
-
-## 🤝 Contribuição
-
-1. Faça um Fork do projeto.
-2. Crie uma branch para sua feature:
-    ```bash
-    git checkout -b minha-feature
-    ```
-
-3. Faça commit das suas alterações:
-    ```bash
-    git commit -m "Minha nova feature"
-    ```
-
-4. Envie para o repositório remoto:
-    ```bash
-    git push origin minha-feature
-    ```
-
-5. Abra um Pull Request.
+- [Tecnologias Utilizadas](./assets/Readme/technologies.md)
+- [Estrutura do Projeto](./assets/Readme/project-structure.md)
+- [Configuração do Ambiente](./assets/Readme/config.md)
+- [Banco de Dados](./assets/Readme/database.md)
+- [Contribuição](./assets/Readme/contribution.md)
 
 ---
 

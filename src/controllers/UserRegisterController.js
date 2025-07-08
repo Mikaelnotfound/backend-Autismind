@@ -1,12 +1,19 @@
-const query = require('../database/querys/UserQuerys'); // Import the database connection
+"use strict";
+
+const userQuerys = require('../database/querys/UserQuerys');
 const bcrypt = require('bcrypt');
 const verifyEmail = require('../utils/verify');
 
 
 class UserRegisterController {
+    constructor(userQuerys, bcrypt, verifyEmailFunction){
+        this.verifyEmail = verifyEmailFunction;
+        this.userQuerys = userQuerys;
+        this.bcrypt = bcrypt;
+    }
     async getAllUsers(req, res) {
         try {
-            const users = await query.getAllUsers(); // Fetch all users from the database
+            const users = await this.userQuerys.getAllUsers();
             if (!users) {
                 return res.status(404).json({ message: 'No users found' });
             }
@@ -15,11 +22,11 @@ class UserRegisterController {
             res.status(500).json({ message: 'Internal server error', error: error.message || error });
         }
     }
-
+    
     async getUserId(req, res) {
         try {
             const { id } = req.params;
-            const user = await query.getUserId(id); // Fetch user by ID from the database
+            const user = await this.userQuerys.getUserId(id);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
@@ -32,24 +39,22 @@ class UserRegisterController {
 
     async postNewUser(req, res) {
         try {
-            const { username, password, email, communication_level } = req.body; // Extract username, password, and email from the request body
+            const { username, password, email, communication_level } = req.body;
             
-            // check if email is valid
-            if (!verifyEmail(email)) {
+            if (!this.verifyEmail(email)) {
                 return res.status(400).json({ message: 'Invalid email format' });
             }
             
-            // Check if username, password, and email are provided
             if (!username || !password || !communication_level) {
                 return res.status(400).json({ message: 'Username, password and communication level are required' });
             }
 
-            const userExists = await query.verifyUser(username, email); // Check if user already exists in the database
+            const userExists = await this.userQuerys.verifyUser(username, email);
             if (userExists) {
                 return res.status(409).json({ message: 'User already exists' });
             } else {
-                const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
-                await query.addUser(username, email, hashedPassword, communication_level); // Create a new user in the database
+                const hashedPassword = await this.bcrypt.hash(password, 10);
+                await this.userQuerys.addUser(username, email, hashedPassword, communication_level);
                 res.status(201).json({
                     message: 'User registered successfully',
                     user: { username, email, communication_level }
@@ -65,23 +70,26 @@ class UserRegisterController {
         try {
             const { id } = req.params;
             const { username, password, email } = req.body;
-            const user = await query.getUserId(id); // Fetch user by ID from the database
+            const user = await this.userQuerys.getUserId(id);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
 
-            const verify = await query.verifyUser(username, email); // Check if user already exists in the database
+            if (!this.verifyEmail(email)) {
+                return res.status(400).json({ message: 'Invalid email format' });
+            }
+
+            const verify = await this.userQuerys.verifyUser(username, email);
 
             if (verify) {
                 return res.status(409).json({ message: 'User already exists' });
             } else {
-                // Update the user details in the database
-                await query.updateUser(
+                await this.userQuerys.updateUser(
                     id,
                     user.username = username || user.username,
                     user.email = email || user.email,
-                    user.password = password ? await bcrypt.hash(password, 10) : user.password // Hash the password if provided
-                ); // Update the user in the database
+                    user.password = password ? await this.bcrypt.hash(password, 10) : user.password
+                );
                 res.status(200).json({ message: 'User updated successfully' });
             }
         } catch (error) {
@@ -93,13 +101,11 @@ class UserRegisterController {
     async deleteUser(req, res) {
         try {
             const { id } = req.params;
-            const user = await query.getUserId(id) // Fetch user by ID from the database
-            // Check if user exists
+            const user = await this.userQuerys.getUserId(id);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            await query.deleteUser(id) // Delete the user from the database
-            // Check if user was deleted successfully
+            await this.userQuerys.deleteUser(id);
             res.status(200).json({ message: 'User deleted successfully' });
         } catch (error) {
             res.status(500).json({ message: 'Internal server error', error: error.message || error });
@@ -109,4 +115,4 @@ class UserRegisterController {
 }
 
 
-module.exports = new UserRegisterController();
+module.exports = new UserRegisterController(userQuerys, bcrypt, verifyEmail);

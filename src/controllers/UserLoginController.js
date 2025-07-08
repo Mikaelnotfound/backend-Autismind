@@ -1,16 +1,23 @@
-const query = require('../database/querys/UserQuerys'); // Import the database connection
-const bcrypt = require('bcrypt'); // Import bcrypt for password hashing
-const verifyEmail = require('../utils/verify');
+"use strict";
 
-const Auth = require('../utils/auth'); // Import the Auth class
+const userQuerys = require('../database/querys/UserQuerys');
+const bcrypt = require('bcrypt');
+const verifyEmail = require('../utils/verify');
+const Auth = require('../utils/auth');
 
 class UserLoginController {
+    constructor(userQuerys, bcrypt, verifyEmail, Auth) {
+        this.userQuerys = userQuerys;
+        this.bcrypt = bcrypt;
+        this.verifyEmail = verifyEmail;
+        this.Auth = Auth;
+    }
+
     async postUserLogin(req, res) {
         try {
             const { email, password } = req.body;
 
-            // check if email and passoword are valid
-            if (!verifyEmail(email)) {
+            if (!this.verifyEmail(email)) {
                 return res.status(400).json({ message: 'Invalid email format' });
             }
 
@@ -18,19 +25,17 @@ class UserLoginController {
                 return res.status(400).json({ message: 'Email and password are required' });
             }
 
-            // Busque o usuário no banco de dados pelo email
-            const user = await query.getUserByEmail(email);
+            const user = await this.userQuerys.getUserByEmail(email);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
 
-            // Verifique a senha fornecida com a senha hash armazenada
-            const isPasswordValid = await bcrypt.compare(password, user.password);
+            const isPasswordValid = await this.bcrypt.compare(password, user.password);
             if (!isPasswordValid) {
                 return res.status(401).json({ message: 'Invalid password' });
             }
 
-            const token = Auth.generateToken(user);
+            const token = this.Auth.generateToken(user);
 
             res.status(200).json({ message: 'Login successful', user: { id: user.id, username: user.username, email: user.email, jwt_token: token } });
         } catch (error) {
@@ -40,4 +45,4 @@ class UserLoginController {
     }
 }
 
-module.exports = new UserLoginController();
+module.exports = new UserLoginController(userQuerys, bcrypt, verifyEmail, Auth);

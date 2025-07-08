@@ -1,25 +1,34 @@
 "use-strict";
 
-const query = require('../database/querys/MessageQuerys');
-const queryUser = require('../database/querys/UserQuerys');
-const queryChat = require('../database/querys/ChatQuerys');
-const queryCharacter = require('../database/querys/CharacterQuerys');
+const messageQuerys = require('../database/querys/MessageQuerys');
+const userQuerys = require('../database/querys/UserQuerys');
+const chatQuerys = require('../database/querys/ChatQuerys');
+const characterQuerys = require('../database/querys/CharacterQuerys');
 const { generateGeminiResponse, analyzeMessage } = require('../utils/geminiServices');
 require('dotenv').config();
 
 class MessageController {
+    constructor(messageQuerys, userQuerys, chatQuerys, characterQuerys, generateGeminiResponse, analyzeMessage) {
+        this.messageQuerys = messageQuerys;
+        this.userQuerys = userQuerys;
+        this.chatQuerys = chatQuerys;
+        this.characterQuerys = characterQuerys;
+        this.generateGeminiResponse = generateGeminiResponse;
+        this.analyzeMessage = analyzeMessage;
+    }
+
     async getAllMessagesByUser(req, res) {
         try {
             const { userId } = req.params;
             const loggedUserId = req.user.id;
-            const user = await queryUser.getUserId(userId);
+            const user = await this.userQuerys.getUserId(userId);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
             if (parseInt(userId) !== loggedUserId) {
                 return res.status(403).json({ message: 'Access denied' });
             }
-            const messages = await query.getAllMessagesByUser(userId);
+            const messages = await this.messageQuerys.getAllMessagesByUser(userId);
             res.status(200).json({ messages });
         } catch (error) {
             console.error(error);
@@ -33,11 +42,11 @@ class MessageController {
             if (!userId) {
                 return res.status(400).json({ message: 'userId is required' });
             }
-            const user = await queryUser.getUserId(userId);
+            const user = await this.userQuerys.getUserId(userId);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            const messages = await query.getAllMessageByChat(userId, chatId);
+            const messages = await this.messageQuerys.getAllMessageByChat(userId, chatId);
             res.status(200).json({ messages });
         } catch (error) {
             console.error(error);
@@ -57,11 +66,11 @@ class MessageController {
             if (!user_id || !content || !sent_by) {
                 return res.status(400).json({ message: 'user_id, content and sent_by are required' });
             }
-            const chat = await queryChat.getChatById(chat_id);
+            const chat = await this.chatQuerys.getChatById(chat_id);
             if (!chat) {
                 return res.status(400).json({ message: 'chat not found' });
             }
-            const user = await queryUser.getUserId(user_id);
+            const user = await this.userQuerys.getUserId(user_id);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
@@ -69,7 +78,7 @@ class MessageController {
                 shipping_date = new Date();
                 shipping_date = shipping_date.toISOString().slice(0, 19).replace('T', ' ');
             }
-            await query.addMessage(
+            await this.messageQuerys.addMessage(
                 shipping_date ?? null,
                 sent_by ?? null,
                 content ?? null,
@@ -79,13 +88,13 @@ class MessageController {
             let aiResponse = null;
             let analysisResult = null;
             if (sent_by === 'user') {
-                const character = await queryCharacter.getCharacterById(chat.character_id);
+                const character = await this.characterQuerys.getCharacterById(chat.character_id);
                 const characterPersona = character ? character.personality : "Você é um assistente útil e amigável.";
-                const rawHistory = await query.getAllMessageByChat(user_id, chat_id);
-                aiResponse = await generateGeminiResponse(content, rawHistory, characterPersona);
-                analysisResult = analyzeMessage(content);
+                const rawHistory = await this.messageQuerys.getAllMessageByChat(user_id, chat_id);
+                aiResponse = await this.generateGeminiResponse(content, rawHistory, characterPersona);
+                analysisResult = this.analyzeMessage(content);
                 const aiMessageTimestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
-                await query.addMessage(
+                await this.messageQuerys.addMessage(
                     aiMessageTimestamp,
                     'bot',
                     aiResponse ?? null,
@@ -116,7 +125,7 @@ class MessageController {
             if (!messageId) {
                 return res.status(400).json({ message: 'messageId is required' });
             }
-            const message = await query.deleteMessage(messageId);
+            const message = await this.messageQuerys.deleteMessage(messageId);
             if (!message) {
                 return res.status(404).json({ message: 'Message not found' });
             }
@@ -128,4 +137,4 @@ class MessageController {
     }
 }
 
-module.exports = new MessageController();
+module.exports = new MessageController(messageQuerys, userQuerys, chatQuerys, characterQuerys, generateGeminiResponse, analyzeMessage);

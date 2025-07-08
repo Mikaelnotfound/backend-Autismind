@@ -1,12 +1,14 @@
-const query = require('../database/querys/CharacterQuerys');
+"use strict";
+
+const characterQuerys = require('../database/querys/CharacterQuerys');
 
 class CharacterController {
-    /**
-     * Retrieves all characters from the database
-     */
+    constructor(characterQuerys) {
+        this.characterQuerys = characterQuerys;
+    }
     async getAllCharacters(req, res) {
         try {
-            const characters = await query.getAllCharacter();
+            const characters = await this.characterQuerys.getAllCharacter();
             res.status(200).json({ characters });
         } catch (error) {
             console.error(error);
@@ -14,9 +16,6 @@ class CharacterController {
         }
     }
 
-    /**
-     * Retrieves a character by its ID
-     */
     async getCharacterById(req, res) {
         try {
             const { id: characterId } = req.params;
@@ -25,7 +24,7 @@ class CharacterController {
                 return res.status(400).json({ message: 'characterId is required' });
             }
 
-            const character = await query.getCharacterById(characterId);
+            const character = await this.characterQuerys.getCharacterById(characterId);
             if (!character) {
                 return res.status(404).json({ message: 'Character not found' });
             }
@@ -37,9 +36,6 @@ class CharacterController {
         }
     }
 
-    /**
-     * Adds a new character to the database
-     */
     async addCharacter(req, res) {
         try {
             const { name, personality } = req.body;
@@ -48,7 +44,7 @@ class CharacterController {
                 return res.status(400).json({ message: 'name and personality are required' });
             }
 
-            await query.addCharacter({ name, personality });
+            await this.characterQuerys.addCharacter({ name, personality });
             res.status(201).json({ message: 'Character created successfully' });
         } catch (error) {
             console.error(error);
@@ -56,9 +52,6 @@ class CharacterController {
         }
     }
 
-    /**
-     * Deletes a character by its ID
-     */
     async deleteCharacter(req, res) {
         try {
             const { id: characterId } = req.params;
@@ -67,7 +60,7 @@ class CharacterController {
                 return res.status(400).json({ message: 'characterId is required' });
             }
 
-            const result = await query.deleteCharacter(characterId);
+            const result = await this.characterQuerys.deleteCharacter(characterId);
             if (!result.affectedRows) {
                 return res.status(404).json({ message: 'Character not found' });
             }
@@ -80,4 +73,4 @@ class CharacterController {
     }
 }
 
-module.exports = new CharacterController();
+module.exports = new CharacterController(characterQuerys);
