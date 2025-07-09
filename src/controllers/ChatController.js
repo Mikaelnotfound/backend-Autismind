@@ -52,9 +52,18 @@ class ChatController {
                 date = date.toISOString().slice(0, 19).replace('T', ' ');
             }
 
-            const chat = await this.chatQuerys.addChat(date, title, user_id, character_id);
-            await this.historicalQuerys.addHistoricalData(date, chat, title, user_id);
-            res.status(201).json({ message: 'Chat created successfully' });
+            const newChatId = await this.chatQuerys.addChat(date, title, user_id, character_id);
+            await this.historicalQuerys.addHistoricalData(date, newChatId, title, user_id);
+            
+            const newChat = {
+                id: newChatId,
+                date,
+                title,
+                user_id,
+                character_id
+            };
+
+            res.status(201).json({ message: 'Chat created successfully', chat: newChat });
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal server error', error: error.message || error });
