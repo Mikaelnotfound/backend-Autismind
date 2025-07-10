@@ -4,13 +4,15 @@ const userQuerys = require('../database/querys/UserQuerys');
 const bcrypt = require('bcrypt');
 const verifyEmail = require('../utils/verify');
 const Auth = require('../utils/auth');
+const CookieService = require('../utils/CookieService');
 
 class UserLoginController {
-    constructor(userQuerys, bcrypt, verifyEmail, Auth) {
+    constructor(userQuerys, bcrypt, verifyEmail, Auth, cookie) {
         this.userQuerys = userQuerys;
         this.bcrypt = bcrypt;
         this.verifyEmail = verifyEmail;
         this.Auth = Auth;
+        this.cookie = cookie
     }
 
     async postUserLogin(req, res) {
@@ -37,7 +39,9 @@ class UserLoginController {
 
             const token = this.Auth.generateToken(user);
 
-            res.status(200).json({ message: 'Login successful', user: { id: user.id, username: user.username, email: user.email, jwt_token: token } });
+            this.cookie.set(res, 'access_token', token);
+
+            res.status(200).json({ message: 'Login successful', user: { id: user.id, username: user.username, email: user.email } });
         } catch (error) {
             console.error('Error during login:', error);
             res.status(500).json({ message: 'Internal server error', error: error.message || error });
@@ -45,4 +49,4 @@ class UserLoginController {
     }
 }
 
-module.exports = new UserLoginController(userQuerys, bcrypt, verifyEmail, Auth);
+module.exports = new UserLoginController(userQuerys, bcrypt, verifyEmail, Auth, CookieService);

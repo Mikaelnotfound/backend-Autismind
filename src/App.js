@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const {
   userRoutes,
@@ -20,7 +21,7 @@ class App {
   constructor() {
     this.app = express();
     this.cors = cors({
-      origin: '*',
+      origin: 'http://127.0.0.1:5500',
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
       allowedHeaders: ['Content-Type', 'Authorization']
     });
@@ -34,6 +35,7 @@ class App {
 
   middleware() {
     this.app.use(express.json());
+    this.app.use(cookieParser());
     this.app.use(this.cors);
     this.app.use('/api/api-docs', this.swaggerUi.serve, this.swaggerUi.setup(this.swaggerDocs));
   }

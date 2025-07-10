@@ -16,14 +16,12 @@ class Auth {
     }
 
     middlewareVerifyToken(req, res, next) {
-        const authHeader = req.headers['authorization'];
-        if (!authHeader) {
+        const token = req.cookies.access_token;
+
+        if (!token) {
             return res.status(401).json({ message: 'No token provided' });
         }
-        const token = authHeader.split(' ')[1];
-        if (!token) {
-            return res.status(401).json({ message: 'Malformed token' });
-        }
+
         try {
             const decoded = this.verifyToken(token);
             req.user = decoded;
