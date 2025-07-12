@@ -25,6 +25,11 @@ const swaggerDocs = {
       description: "Servidor de desenvolvimento"
     }
   ],
+  security: [
+    {
+      bearerAuth: [],
+    },
+  ],
   paths: {
     // USERS
     "/users": {
