@@ -6,7 +6,7 @@ const userLoginController = require('../controllers/UserLoginController');
 const ChatController = require('../controllers/ChatController');
 const HistoricalController = require('../controllers/HistoricalController');
 const MessageController = require('../controllers/MessageController');
-const Auth = require('../utils/auth');
+const Auth = require('../utils/Auth');
 
 router.post('/login', userLoginController.postUserLogin.bind(userLoginController));
 
