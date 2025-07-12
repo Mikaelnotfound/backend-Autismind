@@ -36,7 +36,6 @@ class App {
   }
 
   routes() {
-
     this.app.use('/api', userRoutes);
     this.app.use('/api', messageRoutes);
     this.app.use('/api', chatRoutes);
