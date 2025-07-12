@@ -6,21 +6,44 @@ class DatabaseQuerys {
     }
 
     async executeQuery(sql, value = []) {
-        if (!this.pool.pool) {
-            throw new Error('Database connection pool is not initialized');
+        const pgPool = this.pool.getPool();
+        if (!pgPool) {
+            throw new Error('Database connection pool is not initialized or failed to connect');
         }
 
+        let client;
         try {
-            const connection = await this.pool.pool.getConnection();
+            client = await pgPool.connect();
             try {
-                const [rows] = await connection.execute(sql, value);
-                return rows;
+                const result = await client.query(sql, value);
+                return result.rows;
             } finally {
-                connection.release();
+                client.release();
             }
         } catch (error) {
             console.error('Error executing query:', error);
             throw error;
+        }
+    }
+
+    async executeTransaction(queries) {
+        const pgPool = this.pool.getPool();
+        if (!pgPool) {
+            throw new Error('Database connection pool is not initialized or failed to connect');
+        }
+
+        const client = await pgPool.connect();
+        try {
+            await client.query('BEGIN');
+            for (const { sql, values } of queries) {
+                await client.query(sql, values);
+            }
+            await client.query('COMMIT');
+        } catch (e) {
+            await client.query('ROLLBACK');
+            throw e;
+        } finally {
+            client.release();
         }
     }
 }

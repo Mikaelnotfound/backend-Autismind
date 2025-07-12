@@ -15,6 +15,7 @@ const swaggerDocs = require('../docs/swagger.js');
 
 const pool = require('./database/Pool/Pool.js');
 const migrate = require('./database/migrate.js');
+const seedCharacters = require('./database/seed.js')
 
 class App {
   constructor() {
@@ -50,6 +51,7 @@ class App {
     try {
       await migrate();
       pool.connect();
+      await seedCharacters();
       
       console.log('Database is ready and connection pool is active.');
 

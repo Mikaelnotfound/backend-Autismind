@@ -1,34 +1,35 @@
 'use-strict';
 
-const mysql = require('mysql2/promise');
-const dbConfig = require('../env.js');
+const { Client } = require('pg');
+
+const DATABASE_URL = process.env.DATABASE_URL;
 
 const DDL_COMMANDS = [
     `CREATE TABLE IF NOT EXISTS users (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         username VARCHAR(191) NOT NULL,
         email VARCHAR(191) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
         communication_level INT NOT NULL
     );`,
-    `CREATE TABLE IF NOT EXISTS \`character\` (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+    `CREATE TABLE IF NOT EXISTS "character" (
+        id SERIAL PRIMARY KEY,
         name VARCHAR(191) NOT NULL,
         personality VARCHAR(191) NOT NULL
     );`,
     `CREATE TABLE IF NOT EXISTS chat (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        date DATETIME NOT NULL,
+        id SERIAL PRIMARY KEY,
+        date TIMESTAMP WITH TIME ZONE NOT NULL,
         title VARCHAR(191) NOT NULL,
         user_id INT NOT NULL,
         character_id INT NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-        FOREIGN KEY (character_id) REFERENCES \`character\`(id) ON DELETE CASCADE
+        FOREIGN KEY (character_id) REFERENCES "character"(id) ON DELETE CASCADE
     );`,
     `CREATE TABLE IF NOT EXISTS message (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        shipping_date DATETIME NOT NULL,
-        sent_by ENUM('user', 'bot') NOT NULL,
+        id SERIAL PRIMARY KEY,
+        shipping_date TIMESTAMP WITH TIME ZONE NOT NULL,
+        sent_by VARCHAR(10) NOT NULL CHECK (sent_by IN ('user', 'bot')),
         content TEXT NOT NULL,
         user_id INT NOT NULL,
         chat_id INT NOT NULL,
@@ -36,8 +37,8 @@ const DDL_COMMANDS = [
         FOREIGN KEY (chat_id) REFERENCES chat(id) ON DELETE CASCADE
     );`,
     `CREATE TABLE IF NOT EXISTS historical (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        date DATETIME NOT NULL,
+        id SERIAL PRIMARY KEY,
+        date TIMESTAMP WITH TIME ZONE NOT NULL,
         chat_id INT NOT NULL,
         chat_title VARCHAR(191) NOT NULL,
         user_id INT NOT NULL,
@@ -47,28 +48,34 @@ const DDL_COMMANDS = [
 ];
 
 async function migrate() {
-    const { host, user, password, database } = dbConfig;
-    let connection;
+    if (!DATABASE_URL) {
+        console.error('DATABASE_URL environment variable is not set.');
+        process.exit(1);
+    }
+
+    const client = new Client({
+        connectionString: DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false
+        }
+    });
 
     try {
-        connection = await mysql.createConnection({ host, user, password });
-
-        await connection.query(`CREATE DATABASE IF NOT EXISTS ${database};`);
-        console.log(`Database '${database}' is ready.`);
-
-        await connection.changeUser({ database });
+        await client.connect();
+        console.log('Connected to PostgreSQL database for migration.');
 
         for (const command of DDL_COMMANDS) {
-            await connection.execute(command);
+            await client.query(command);
         }
-        console.log('All tables created or already exist.');
+        console.log('All tables created or already exist in PostgreSQL.');
 
     } catch (error) {
         console.error('Failed to migrate database:', error);
         process.exit(1);
     } finally {
-        if (connection) {
-            await connection.end();
+        if (client) {
+            await client.end(); 
+            console.log('Database connection closed.');
         }
     }
 }
