@@ -8,14 +8,10 @@ const {
   chatRoutes,
   historicalRoutes,
   characterRoutes
-} = require('./routes/index.js');
+} = require('./routes/index.js'); 
 
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocs = require('../docs/swagger.js');
-
-const pool = require('./database/Pool/Pool.js');
-const migrate = require('./database/migrate.js');
-const seedCharacters = require('./database/seed.js')
+const swaggerDocs = require('../docs/swagger.js'); 
 
 class App {
   constructor() {
@@ -25,7 +21,6 @@ class App {
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
       allowedHeaders: ['Content-Type', 'Authorization']
     });
-    this.PORT = process.env.PORT;
     this.swaggerUi = swaggerUi;
     this.swaggerDocs = swaggerDocs;
 
@@ -40,31 +35,13 @@ class App {
   }
 
   routes() {
+
     this.app.use('/api', userRoutes);
     this.app.use('/api', messageRoutes);
     this.app.use('/api', chatRoutes);
     this.app.use('/api', historicalRoutes);
     this.app.use('/api', characterRoutes);
   }
-
-  async start() {
-    try {
-      await migrate();
-      pool.connect();
-      await seedCharacters();
-      
-      console.log('Database is ready and connection pool is active.');
-
-      this.app.listen(this.PORT, () => {
-        console.log(`Server is running on port http://localhost:${this.PORT}/api`);
-        console.log(`API documentation available at http://localhost:${this.PORT}/api/api-docs/`);
-      });
-    } catch (error) {
-      console.error('Error during application startup:', error);
-      await pool.disconnect();
-      process.exit(1);
-    }
-  }
 }
 
-module.exports = App;
+module.exports = new App().app;
