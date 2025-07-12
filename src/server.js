@@ -2,9 +2,9 @@ require('dotenv').config();
 
 const app = require('./src/App');
 
-const pool = require('./src/database/Pool/Pool.js'); // Ajuste o caminho
-const migrate = require('./src/database/migrate.js'); // Ajuste o caminho
-const seedCharacters = require('./src/database/seed.js'); // Ajuste o caminho
+const pool = require('./src/database/Pool/Pool.js'); 
+const migrate = require('./src/database/migrate.js'); 
+const seedCharacters = require('./src/database/seed.js'); 
 
 if (process.env.NODE_ENV !== 'production') {
   async function startLocalServer() {

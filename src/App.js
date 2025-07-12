@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
@@ -9,6 +8,9 @@ const {
   historicalRoutes,
   characterRoutes
 } = require('./routes/index.js'); 
+
+const pool = require('./database/Pool/Pool.js');
+pool.connect();
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('../docs/swagger.js'); 
