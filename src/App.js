@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const {
+  statusRoute,
   userRoutes,
   messageRoutes,
   chatRoutes,
@@ -36,6 +37,7 @@ class App {
   }
 
   routes() {
+    this.app.use('/', statusRoute)
     this.app.use('/api', userRoutes);
     this.app.use('/api', messageRoutes);
     this.app.use('/api', chatRoutes);
