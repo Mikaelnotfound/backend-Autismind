@@ -2,11 +2,9 @@ const express = require('express');
 const cors = require('cors');
 
 const {
-  statusRoute,
   userRoutes,
   messageRoutes,
   chatRoutes,
-  historicalRoutes,
   characterRoutes
 } = require('./routes/index.js'); 
 
@@ -37,12 +35,13 @@ class App {
   }
 
   routes() {
-    this.app.use('/', statusRoute)
-    this.app.use('/api', userRoutes);
-    this.app.use('/api', messageRoutes);
-    this.app.use('/api', chatRoutes);
-    this.app.use('/api', historicalRoutes);
-    this.app.use('/api', characterRoutes);
+    this.app.get('/status', (req, res) => {
+      res.status(200).json({ message: "Server is running" });
+    });
+    this.app.use('/api/users', userRoutes);
+    this.app.use('/api/messages', messageRoutes);
+    this.app.use('/api/chats', chatRoutes);
+    this.app.use('/api/characters', characterRoutes);
   }
 }
 

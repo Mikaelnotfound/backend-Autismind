@@ -4,9 +4,9 @@ const router = express.Router();
 const CharacterController = require('../controllers/CharacterController');
 const Auth = require('../utils/auth');
 
-router.get('/characters', Auth.middlewareVerifyToken.bind(Auth), CharacterController.getAllCharacters.bind(CharacterController));
-router.get('/characters/:id', Auth.middlewareVerifyToken.bind(Auth), CharacterController.getCharacterById.bind(CharacterController));
-router.post('/characters', Auth.middlewareVerifyToken.bind(Auth), CharacterController.addCharacter.bind(CharacterController));
-router.delete('/characters/:id', Auth.middlewareVerifyToken.bind(Auth), CharacterController.deleteCharacter.bind(CharacterController));
+router.get('/', Auth.middlewareVerifyToken.bind(Auth), CharacterController.getAllCharacters.bind(CharacterController));
+router.get('/:id', Auth.middlewareVerifyToken.bind(Auth), CharacterController.getCharacterById.bind(CharacterController));
+router.post('/', Auth.middlewareVerifyToken.bind(Auth), CharacterController.addCharacter.bind(CharacterController));
+router.delete('/:id', Auth.middlewareVerifyToken.bind(Auth), CharacterController.deleteCharacter.bind(CharacterController));
 
 module.exports = router;
