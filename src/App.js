@@ -10,7 +10,6 @@ const {
 } = require('./routes/index.js'); 
 
 const pool = require('./database/Pool/Pool.js');
-pool.connect();
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('../docs/swagger.js'); 
