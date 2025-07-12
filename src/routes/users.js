@@ -12,4 +12,9 @@ router.post('/users', UserRegisterController.postNewUser.bind(UserRegisterContro
 router.put('/users/:id', UserRegisterController.updateUser.bind(UserRegisterController));
 router.delete('/users/:id', UserRegisterController.deleteUser.bind(UserRegisterController));
 
+
+router.get('/status', (req, res) => {
+  res.status(200).json({ message: "Users route is running" });
+});
+
 module.exports = router;
