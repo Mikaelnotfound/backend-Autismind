@@ -1,3 +1,3 @@
-const app = require('../App');
+const app = require('/var/task/src/App.js');
 
 module.exports = app;
