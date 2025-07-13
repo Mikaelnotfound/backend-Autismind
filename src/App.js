@@ -1,17 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 
-const {
-  userRoutes,
-  messageRoutes,
-  chatRoutes,
-  characterRoutes
-} = require('./routes/index.js'); 
+const userRoutes = require('./routes/users');
+const messageRoutes = require('./routes/message');
+const chatRoutes = require('./routes/chats');
+const characterRoutes = require('./routes/character'); 
 
 const pool = require('./database/Pool/Pool.js');
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('../docs/swagger.js'); 
+
+const errorHandler = require('./utils/error/errorHandler.js');
 
 class App {
   constructor() {
@@ -26,6 +26,8 @@ class App {
 
     this.middleware();
     this.routes();
+
+    this.app.use(errorHandler);
   }
 
   middleware() {
