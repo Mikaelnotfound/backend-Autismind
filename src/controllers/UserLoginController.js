@@ -3,7 +3,7 @@
 const userQuerys = require('../database/querys/UserQuerys');
 const bcrypt = require('bcrypt');
 const verifyEmail = require('../utils/verify');
-const Auth = require('../utils/auth');
+const Auth = require('../utils/Auth');
 
 class UserLoginController {
     constructor(userQuerys, bcrypt, verifyEmail, Auth) {
