@@ -50,7 +50,6 @@ class App {
   async start() {
     try {
       await migrate();
-      pool.connect();
       await seedCharacters();
       
       console.log('Database is ready and connection pool is active.');
