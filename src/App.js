@@ -15,7 +15,7 @@ const swaggerDocs = require('../docs/swagger.js');
 
 const pool = require('./database/Pool/Pool.js');
 const migrate = require('./database/migrate.js');
-const seedCharacters = require('./database/seed.js')
+
 
 class App {
   constructor() {
@@ -50,13 +50,12 @@ class App {
   async start() {
     try {
       await migrate();
-      await seedCharacters();
       
       console.log('Database is ready and connection pool is active.');
 
       this.app.listen(this.PORT, () => {
-        console.log(`Server is running on port http://localhost:${this.PORT}/api`);
-        console.log(`API documentation available at http://localhost:${this.PORT}/api/api-docs/`);
+        console.log(`Server is running on route /api`);
+        console.log(`API documentation available at /api/api-docs/`);
       });
     } catch (error) {
       console.error('Error during application startup:', error);
