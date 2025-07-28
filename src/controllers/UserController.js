@@ -45,33 +45,36 @@ class UserRegisterController {
     }
 
     async postUserLogin(req, res, next) {
-	try {
-	    const { email, password } = req.body;
-	    
-	    if (!this.verifyEmail(email)) {
-		return next(new ValidationError('Invalid email format'));
-	    }
+        try {
+            const { email, password } = req.body;
+            
+            if (!this.verifyEmail(email)) {
+                return next(new ValidationError('Invalid email format'));
+            }
 
-	    if (!password) {
-		return next(new ValidationError('Email and password are required'));
-	    }
+            if (!password) {
+                return next(new ValidationError('Email and password are required'));
+            }
 
-	    const user = await this.userQuerys.getUserByEmail(email);
-	    if (!user) {
-		return next(new NotFoundError('User not found'));
-	    }
+            const user = await this.userQuerys.getUserByEmail(email);
 
-	    const isPasswordValid = await this.bcrypt.compare(password, user.password);
-	    if (!isPasswordValid) {
-		return next(new ValidationError('Invalid password'));
-	    }
+            if (!user) {
+                return next(new NotFoundError('User not found'));
+            }
 
-	    const token = Auth.generateToken(user);
-	    
-	    res.status(200).json({ message: 'Login are sucessful!', user: { id: user.id, username: user.username, email: user.email, jwt_token: token } });
-	    } catch (err) {
-	        next(err);
-	    }	
+            const isPasswordValid = await this.bcrypt.compare(password, user.password);
+
+            if (!isPasswordValid) {
+                return next(new ValidationError('Invalid password'));
+            }
+
+            const token = await Auth.generateToken(user);
+
+            res.status(200).json({ message: 'Login are sucessful!', user: { id: user.id, username: user.username, email: user.email, jwt_token: token } });
+
+        } catch (err) {
+            next(err);
+        }
     }
 
     async postNewUser(req, res, next) {

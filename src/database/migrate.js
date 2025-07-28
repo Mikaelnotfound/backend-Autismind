@@ -72,11 +72,6 @@ async function migrate() {
     } catch (error) {
         console.error('Failed to migrate database:', error);
         process.exit(1);
-    } finally {
-        if (client) {
-            await client.end(); 
-            console.log('Database connection closed.');
-        }
     }
 }
 

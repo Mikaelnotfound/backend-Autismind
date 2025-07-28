@@ -30,15 +30,21 @@ class App {
     this.swaggerUi = swaggerUi;
     this.swaggerDocs = swaggerDocs;
 
+    this.app.use(express.static('../public'));
+    
     this.middleware();
     this.routes();
+    
+    this.app.use((req, res, next) => {
+      res.status(404).sendFile('/public/404.html');
+    });
+    this.app.use(ErrorHandler);
   }
 
   middleware() {
     this.app.use(express.json());
     this.app.use(this.cors);
     this.app.use('/api/api-docs', this.swaggerUi.serve, this.swaggerUi.setup(this.swaggerDocs));
-    this.app.use(ErrorHandler);
   }
 
   routes() {
@@ -53,11 +59,8 @@ class App {
     try {
       await migrate();
       
-      console.log('Database is ready and connection pool is active.');
-
       this.app.listen(this.PORT, () => {
-        console.log(`Server is running on route /api`);
-        console.log(`API documentation available at /api/api-docs/`);
+      	console.log('Server is running!');
       });
     } catch (error) {
       console.error('Error during application startup:', error);
