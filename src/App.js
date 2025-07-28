@@ -15,6 +15,7 @@ const swaggerDocs = require('../docs/swagger.js');
 
 const pool = require('./database/Pool/Pool.js');
 const migrate = require('./database/migrate.js');
+const ErrorHandler = require('./service/error/errorHandler');
 
 
 class App {
@@ -37,6 +38,7 @@ class App {
     this.app.use(express.json());
     this.app.use(this.cors);
     this.app.use('/api/api-docs', this.swaggerUi.serve, this.swaggerUi.setup(this.swaggerDocs));
+    this.app.use(ErrorHandler);
   }
 
   routes() {

@@ -1,8 +1,10 @@
+
 "use strict";
 
 const chatQuerys = require('../database/querys/ChatQuerys');
 const userQuerys = require('../database/querys/UserQuerys');
 const historicalQuerys = require('../database/querys/HistoricalQuerys');
+const { NotFoundError, ValidationError, ForbiddenError } = require('../service/error/errorClasses');
 
 class ChatController {
     constructor(chatQuerys, userQuerys, historicalQuerys) {
@@ -11,40 +13,39 @@ class ChatController {
         this.historicalQuerys = historicalQuerys;
     }
 
-    async getAllChats(req, res) {
+    async getAllChats(req, res, next) {
         try {
             const { userId } = req.params;
             const loggedUserId = req.user.id;
 
             const user = await this.userQuerys.getUserId(userId);
             if (!user) {
-                return res.status(404).json({ message: 'User not found' });
+                return next(new NotFoundError('User not found'));
             }
 
             if (parseInt(userId) !== loggedUserId) {
-                return res.status(403).json({ message: 'Access denied' });
+                return next(new ForbiddenError('Access denied'));
             }
 
             const chats = await this.chatQuerys.getAllChats(userId);
             res.status(200).json({ chats });
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Internal server error', error: error.message || error });
+            next(error);
         }
     }
 
-    async addChat(req, res) {
+    async addChat(req, res, next) {
         try {
             const { user_id, character_id, title } = req.body;
             let { date } = req.body;
 
             if (!user_id || !character_id || !title) {
-                return res.status(400).json({ message: 'user_id, and character_id are required' });
+                return next(new ValidationError('user_id, and character_id are required'));
             }
 
             const user = await this.userQuerys.getUserId(user_id);
             if (!user) {
-                return res.status(404).json({ message: 'User not found' });
+                return next(new NotFoundError('User not found'));
             }
 
             if (!date) {
@@ -65,28 +66,26 @@ class ChatController {
 
             res.status(201).json({ message: 'Chat created successfully', chat: newChat });
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Internal server error', error: error.message || error });
+            next(error);
         }
     }
 
-    async deleteChat(req, res) {
+    async deleteChat(req, res, next) {
         try {
             const { id: chatId } = req.params;
 
             if (!chatId) {
-                return res.status(400).json({ message: 'chatId is required' });
+                return next(new ValidationError('chatId is required'));
             }
 
             const result = await this.chatQuerys.deleteChat(chatId);
             if (!result.affectedRows) {
-                return res.status(404).json({ message: 'Chat not found' });
+                return next(new NotFoundError('Chat not found'));
             }
 
             res.status(200).json({ message: 'Chat deleted successfully' });
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Internal server error', error: error.message || error });
+            next(error);
         }
     }
 }
